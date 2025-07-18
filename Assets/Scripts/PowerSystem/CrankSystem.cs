@@ -15,9 +15,9 @@ public class CrankSystem : MonoBehaviour, IPowerProducer
     // Update is called once per frame
     void Update()
     {
-        if (_actions.UI.Click.triggered)
-        {
-            Debug.Log("Clicked");
-        }
+        //if (_actions.UI.Click.triggered)
+        //{
+        //    Debug.Log("Clicked");
+        //}
     }
 }
