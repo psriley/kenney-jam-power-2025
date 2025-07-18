@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 public class GameManager : MonoBehaviour
 {
-    public int Timer;
+    private int Timer;
 
     public PowerSystem powerSystem;
 
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
     private List<IPowerProducer> powerProducers = new List<IPowerProducer>();
     private List<IPowerConsumer> powerConsumers = new List<IPowerConsumer>();
 
-    public GameObject ClickGenerator;
+    public GameObject ClickGeneratorPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,9 +23,9 @@ public class GameManager : MonoBehaviour
 
     private void SetupClickGenerator()
     {
-        GameObject clickGenerator = Instantiate(ClickGenerator);
+        GameObject clickGenerator = Instantiate(ClickGeneratorPrefab);
         clickGenerator.transform.position = Vector3.zero;
-        CrankSystem crankSystem = ClickGenerator.GetComponent<CrankSystem>();
+        CrankSystem crankSystem = clickGenerator.GetComponent<CrankSystem>();
         crankSystem.PowerStorage = storage;
     }
 

@@ -7,6 +7,7 @@ public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable
 
     public void Interact()
     {
+        Debug.Log(PowerStorage);
         PowerStorage.Store(Produce);
     }
 }
