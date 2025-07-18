@@ -4,20 +4,20 @@ using System.ComponentModel;
 
 public class GameManager : MonoBehaviour
 {
-    private int Timer;
+    private float Timer;
 
-    public PowerSystem powerSystem;
-
-    private PowerStorage storage = new PowerStorage();
+    private PowerSystem powerSystem;
     private List<IPowerProducer> powerProducers = new List<IPowerProducer>();
     private List<IPowerConsumer> powerConsumers = new List<IPowerConsumer>();
 
-    public GameObject ClickGeneratorPrefab;
+    [SerializeField] private GameObject ClickGeneratorPrefab;
+    [SerializeField] private PowerStorage Storage;
+    [SerializeField] private float Tick = 1; // How many seconds per tick?
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        powerSystem = new PowerSystem(storage, powerProducers, powerConsumers);
+        powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
         SetupClickGenerator();
     }
 
@@ -25,18 +25,21 @@ public class GameManager : MonoBehaviour
     {
         GameObject clickGenerator = Instantiate(ClickGeneratorPrefab);
         clickGenerator.transform.position = Vector3.zero;
-        CrankSystem crankSystem = clickGenerator.GetComponent<CrankSystem>();
-        crankSystem.PowerStorage = storage;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Timer += 1;
-        if (Timer >= 60)
+        Timer += Time.deltaTime;
+        if (Timer >= Tick)
         {
             powerSystem.Tick();
             Timer = 0;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        Storage.ResetPower();
     }
 }

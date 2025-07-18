@@ -21,6 +21,8 @@ public class ClickHandler : MonoBehaviour
         {
             GameObject hitObject = hit.collider.gameObject;
 
+            Debug.Log(hitObject);
+
             if (hitObject.TryGetComponent(out IInteractable crank))
             {
                 crank.Interact();

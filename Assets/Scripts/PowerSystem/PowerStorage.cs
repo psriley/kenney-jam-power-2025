@@ -1,22 +1,22 @@
 using UnityEngine;
 
-public class PowerStorage
+[CreateAssetMenu(fileName = "PowerStorage", menuName = "Scriptable Objects/PowerStorage")]
+public class PowerStorage: ScriptableObject
 {
-    private int power = 0;
-    private int Power {
-        get
-        {
-            return power;
-        }
-    }
+    public int Power = 0;
 
     public void Store(int amount)
     {
-        power += amount;
+        Power += amount;
     }
 
     public void Drain(int amount)
     {
-        power -= amount;
+        Power -= amount;
+    }
+
+    public void ResetPower()
+    {
+        Power = 0;
     }
 }

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
->
-    
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; flex-direction: row;">
+        <ui:Label name="Power" text="Power" style="font-size: 86px;">
+            <Bindings>
+                <ui:DataBinding property="text" data-source-path="Power" data-source="project://database/Assets/ScriptableObjects/PowerStorage/PowerStorage.asset?fileID=11400000&amp;guid=d0202783be85dc245ad3b35518aff1f3&amp;type=2#PowerStorage" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:Label>
+    </ui:VisualElement>
 </ui:UXML>
