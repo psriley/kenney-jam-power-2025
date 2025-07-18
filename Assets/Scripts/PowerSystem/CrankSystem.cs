@@ -1,23 +1,12 @@
 using UnityEngine;
 
-public class CrankSystem : MonoBehaviour, IPowerProducer
+public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable
 {
     public int Produce => 1;
-    private UserInputActions _actions;
+    public PowerStorage PowerStorage;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Interact()
     {
-        _actions = new UserInputActions();
-        _actions.Enable();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (_actions.UI.Click.triggered)
-        //{
-        //    Debug.Log("Clicked");
-        //}
+        PowerStorage.Store(Produce);
     }
 }

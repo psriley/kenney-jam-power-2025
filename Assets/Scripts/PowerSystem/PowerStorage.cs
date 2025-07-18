@@ -19,6 +19,4 @@ public class PowerStorage
     {
         power -= amount;
     }
-
-
 }
