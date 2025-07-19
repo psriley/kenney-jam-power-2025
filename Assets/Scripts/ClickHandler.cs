@@ -1,16 +1,16 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
-
-public enum InteractionType { INTERACT, PLACE_TORCH }
 
 public class ClickHandler : MonoBehaviour
 {
-    public InteractionType interactType = InteractionType.PLACE_TORCH;
     private UserInputActions inputActions;
+    public UnityEvent<GridCell> buildEvent;
 
     private void Awake()
     {
+        buildEvent = new UnityEvent<GridCell>();
         inputActions = new UserInputActions();
         inputActions.Enable();
 
@@ -58,6 +58,7 @@ public class ClickHandler : MonoBehaviour
     {
         if (!cell.isOccupied)
         {
+            buildEvent?.Invoke(cell);
             Debug.Log("Placing torch...");
         }
     }
