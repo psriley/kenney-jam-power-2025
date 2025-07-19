@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
     private float Timer;
 
+    private ClickHandler clickHandler;
     private PowerSystem powerSystem;
     private List<IPowerProducer> powerProducers = new List<IPowerProducer>();
     private List<IPowerConsumer> powerConsumers = new List<IPowerConsumer>();
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        clickHandler = gameObject.AddComponent<ClickHandler>();
+        clickHandler.buildEvent.AddListener(BuildSomething);
         powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
         SetupClickGenerator();
     }
@@ -41,5 +45,10 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         Storage.ResetPower();
+    }
+
+    void BuildSomething(GridCell cell)
+    {
+        Debug.Log("Building something " + cell);
     }
 }

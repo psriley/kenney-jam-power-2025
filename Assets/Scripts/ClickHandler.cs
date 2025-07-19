@@ -1,13 +1,16 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class ClickHandler : MonoBehaviour
 {
     private UserInputActions inputActions;
+    public UnityEvent<GridCell> buildEvent;
 
     private void Awake()
     {
+        buildEvent = new UnityEvent<GridCell>();
         inputActions = new UserInputActions();
         inputActions.Enable();
 
@@ -21,18 +24,48 @@ public class ClickHandler : MonoBehaviour
         {
             GameObject hitObject = hit.collider.gameObject;
 
-            Debug.Log(hitObject);
+            // Debug.Log(hitObject);
 
-            if (hitObject.TryGetComponent(out IInteractable crank))
+            if (hitObject.TryGetComponent(out IInteractable interactable))
             {
-                crank.Interact();
+                interactable.Interact();
             }
+            if (hitObject.TryGetComponent(out GridCell cell))
+            {
+                // check what UI square is selected
+                PlaceTorch(cell);
+            }
+
+            // if (interactType == InteractionType.INTERACT)
+            // {
+            //     if (hitObject.TryGetComponent(out IInteractable interactable))
+            //     {
+            //         interactable.Interact();
+            //     }
+            // }
+
+            // else if (interactType == InteractionType.PLACE_TORCH)
+            // {
+            //     if (hitObject.TryGetComponent(out GridCell cell))
+            //     {
+            //         PlaceTorch(cell);
+            //     }
+            // }
+        }
+    }
+
+    void PlaceTorch(GridCell cell)
+    {
+        if (!cell.isOccupied)
+        {
+            buildEvent?.Invoke(cell);
+            Debug.Log("Placing torch...");
         }
     }
 
     void Update()
     {
-        
+
     }
 
     // private void OnDisable()
