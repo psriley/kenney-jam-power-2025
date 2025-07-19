@@ -33,7 +33,7 @@ public class ClickHandler : MonoBehaviour
             if (hitObject.TryGetComponent(out GridCell cell))
             {
                 // check what UI square is selected
-                PlaceTorch(cell);
+                PlaceOnGridCell(cell);
             }
 
             // if (interactType == InteractionType.INTERACT)
@@ -54,7 +54,7 @@ public class ClickHandler : MonoBehaviour
         }
     }
 
-    void PlaceTorch(GridCell cell)
+    void PlaceOnGridCell(GridCell cell)
     {
         if (!cell.isOccupied)
         {
