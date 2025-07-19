@@ -105,13 +105,21 @@ public class GridGenerator : MonoBehaviour
         int randomNumberInRange = random.Next(101);
 
         GameObject prefabToGenerate = floorTilePrefab;
-        if (randomNumberInRange < metalTileChance)
+
+        bool isMetalTile = randomNumberInRange < metalTileChance;
+
+        if (isMetalTile)
         {
             prefabToGenerate = metalTilePrefab;
         }
 
-        GridCell gridCell = Instantiate(prefabToGenerate, new Vector3(position.x, 0, position.z), Quaternion.identity, transform)
-            .AddComponent<GridCell>();
+        GameObject createdObject = Instantiate(prefabToGenerate, new Vector3(position.x, 0, position.z), Quaternion.identity, transform);
+
+        GridCell gridCell = createdObject.AddComponent<GridCell>();
+
+        if (isMetalTile) {
+            gridCell.SetOccupant(createdObject);
+        }
 
         gridLights[coordinate] = false;
     }

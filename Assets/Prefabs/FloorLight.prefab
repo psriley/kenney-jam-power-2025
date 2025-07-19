@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5940140204937392442}
+  - component: {fileID: 372668202538466067}
   m_Layer: 0
   m_Name: FloorLight
   m_TagString: Untagged
@@ -33,6 +34,18 @@ Transform:
   - {fileID: 6857895360742367773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &372668202538466067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095204698450453180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44969bad61985104087a95d159b5d36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2182803112971655242
 GameObject:
   m_ObjectHideFlags: 0

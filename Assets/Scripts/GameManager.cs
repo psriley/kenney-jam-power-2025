@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
                 GameObject newObject = buildSystem.Build(light, cell);
                 cell.SetOccupant(newObject);
                 invSlot.RemoveAmount(20);
+                IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
+                powerConsumers.Add(consumer);
             }
             else
             {

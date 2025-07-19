@@ -8,7 +8,7 @@ public class PowerSystem
 
     public List<IPowerProducer> powerProducers;
     public List<IPowerConsumer> powerConsumers;
-    private int constantDrain = 1;
+    private int constantDrain = 0;
 
     // public int Timer;
 
