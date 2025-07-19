@@ -118,31 +118,42 @@ public class GameManager : MonoBehaviour
     private void RemoveFogPanels(GridCell cell)
     {
         GridGenerator gg = cell.GetComponentInParent<GridGenerator>();
+        Light lightOccupant = cell.GetOccupant().GetComponent<Light>();
 
-        if (gg.gridFogTiles.TryGetValue(cell, out GameObject fogTile))
+        Collider[] hitColliders = Physics.OverlapSphere(cell.transform.position, lightOccupant.lightRadius);
+
+        foreach (Collider hit in hitColliders)
         {
-            Destroy(fogTile);
-
-            List<Vector3> neighborPositions = new List<Vector3>
+            if (hit.CompareTag("Fog"))
             {
-                cell.transform.position + new Vector3(1, 0, 0),
-                cell.transform.position + new Vector3(-1, 0, 0),
-                cell.transform.position + new Vector3(0, 0, 1),
-                cell.transform.position + new Vector3(0, 0, -1)
-            };
-
-            foreach (Vector3 neighborPos in neighborPositions)
-            {
-                Debug.Log(neighborPos);
-                if (gg.gridCellPositions.TryGetValue(neighborPos, out GridCell neighborCell))
-                {
-                    if (gg.gridFogTiles.TryGetValue(neighborCell, out GameObject nfogTile))
-                    {
-                        Destroy(nfogTile);
-                    }
-                }
+                Destroy(hit.gameObject);
             }
-            
         }
+
+        // if (gg.gridFogTiles.TryGetValue(cell, out GameObject fogTile))
+        // {
+        //     Destroy(fogTile);
+
+        //     List<Vector3> neighborPositions = new List<Vector3>
+        //     {
+        //         cell.transform.position + new Vector3(1, 0, 0),
+        //         cell.transform.position + new Vector3(-1, 0, 0),
+        //         cell.transform.position + new Vector3(0, 0, 1),
+        //         cell.transform.position + new Vector3(0, 0, -1)
+        //     };
+
+        //     foreach (Vector3 neighborPos in neighborPositions)
+        //     {
+        //         Debug.Log(neighborPos);
+        //         if (gg.gridCellPositions.TryGetValue(neighborPos, out GridCell neighborCell))
+        //         {
+        //             if (gg.gridFogTiles.TryGetValue(neighborCell, out GameObject nfogTile))
+        //             {
+        //                 Destroy(nfogTile);
+        //             }
+        //         }
+        //     }
+
+        // }
     }
 }

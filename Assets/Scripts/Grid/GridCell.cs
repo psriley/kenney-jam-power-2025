@@ -7,6 +7,11 @@ public class GridCell : MonoBehaviour
     public bool IsOccupied => occupant != null;
     private GameObject occupant;
 
+    public GameObject GetOccupant()
+    {
+        return occupant;
+    }
+
     public void SetOccupant(GameObject occupant)
     {
         this.occupant = occupant;
