@@ -1,9 +1,14 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; flex-direction: row;">
-        <ui:Label name="Power" text="Power" style="font-size: 86px;">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Power" data-source="project://database/Assets/ScriptableObjects/PowerStorage/PowerStorage.asset?fileID=11400000&amp;guid=d0202783be85dc245ad3b35518aff1f3&amp;type=2#PowerStorage" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
+    <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; flex-direction: row; padding-top: 32px; padding-right: 32px; padding-bottom: 32px; padding-left: 32px;">
+        <ui:VisualElement name="Container" style="flex-grow: 1; justify-content: flex-end;">
+            <ui:VisualElement name="BottomRIghtContainer" style="-unity-text-align: upper-right;">
+                <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyValue" style="font-size: 48px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Power" data-source="project://database/Assets/ScriptableObjects/PowerStorage/PowerStorage.asset?fileID=11400000&amp;guid=d0202783be85dc245ad3b35518aff1f3&amp;type=2#PowerStorage" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+                <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyText" style="font-size: 36px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
