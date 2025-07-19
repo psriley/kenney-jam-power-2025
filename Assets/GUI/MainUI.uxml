@@ -1,11 +1,20 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Button" src="project://database/Assets/GUI/Button.uxml?fileID=9197481963319205126&amp;guid=cc7be44501a3b194bba182aa5f1bd0d1&amp;type=3#Button" />
     <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; flex-direction: row; padding-top: 32px; padding-right: 32px; padding-bottom: 32px; padding-left: 32px;">
         <ui:VisualElement name="Container" style="flex-grow: 1; justify-content: space-between;">
             <ui:VisualElement name="TopRightContainer" style="-unity-text-align: upper-right; align-items: flex-end; flex-direction: row; justify-content: flex-end;">
                 <ui:VisualElement name="ButtonsContainer" style="flex-direction: row;">
-                    <ui:Button text="Upgrade Light" name="UpgradeLight" style="width: auto; font-size: 24px;" />
-                    <ui:Button text="Add Generator&#10;" name="AddGenerator" style="width: auto; font-size: 24px;" />
-                    <ui:Button text="Upgrade Crank" name="UpgradeCrank" style="width: auto; font-size: 24px;" />
+                    <ui:Instance template="Button" name="add-gen">
+                        <AttributeOverrides element-name="UpgradeLight" text="Add Generator" />
+                        <AttributeOverrides element-name="Button" text="Add Generator" />
+                    </ui:Instance>
+                    <ui:Instance template="Button" name="upgrade-light">
+                        <AttributeOverrides element-name="Button" text="Upgrade Light" />
+                    </ui:Instance>
+                    <ui:Instance template="Button" name="upgrade-crank">
+                        <AttributeOverrides element-name="UpgradeLight" text="Upgrade Crank" />
+                        <AttributeOverrides element-name="Button" text="Upgrade Crank" />
+                    </ui:Instance>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="BottomRIghtContainer" style="-unity-text-align: upper-right;">

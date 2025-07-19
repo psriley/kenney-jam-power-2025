@@ -27,6 +27,24 @@ public class InventoryObject : ScriptableObject
     {
         Container.Items.Clear();
     }
+
+    public int GetItemAmount(int itemID)
+    {
+        InventorySlot slot = GetSlotByID(itemID);
+        return slot != null ? slot.Amount : 0;
+    }
+
+    public InventorySlot GetSlotByID(int itemID) {
+        for (int i = 0; i < Container.Items.Count; i++)
+        {
+            InventorySlot slot = Container.Items[i];
+            if (slot.Item != null && slot.Item.ID == itemID)
+            {
+                return slot;
+            }
+        }
+        return null;
+    }
 }
 
 [System.Serializable]

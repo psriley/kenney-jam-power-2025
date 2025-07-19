@@ -1,9 +1,14 @@
 using UnityEngine;
 
-public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable, ICursorHint
+public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable, ICursorHint, IUpgradeable
 {
-    public int Produce => 1;
+    private int produce = 1;
+    public int Produce => produce;
     public PowerStorage PowerStorage;
+    public CostObject costObject;
+
+    public CursorType GetCursorType() => CursorType.Interact;
+    public CostObject CostObject() => costObject;
 
     public void Interact()
     {
@@ -11,5 +16,8 @@ public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable, ICursor
         PowerStorage.Store(Produce);
     }
 
-    public CursorType GetCursorType() => CursorType.Interact;
+    public void UpgradeLevel(int val)
+    {
+        produce += val;
+    }
 }

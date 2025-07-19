@@ -249,6 +249,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &418012628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 418012630}
+  - component: {fileID: 418012629}
+  m_Layer: 0
+  m_Name: Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &418012629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418012628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8822c2d1bd721434ab6b2af47a18fa26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costObject: {fileID: 11400000, guid: 365a149a5f75d134380b7af1d6fe92d6, type: 2}
+  startProduce: 0
+  produce: 5
+--- !u!4 &418012630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418012628}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 43.73481, y: 0, z: -5.06376}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &445858955
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 445858957}
   - component: {fileID: 445858956}
+  - component: {fileID: 445858958}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -300,6 +348,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &445858958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445858955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41fe172cd21cfe488e675632b756f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpgradeCrankClicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1667231942}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: UpgradeCrank
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  UpgradeLightClicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1667231942}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: UpgradeLights
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  CreateGeneratorClicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1667231942}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: AddGenerator
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &494090386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1427,14 +1532,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: b2849b5fad292b840b1e52a91df87495, type: 2}
-  lightPrefab: {fileID: 0}
+  lightPrefab: {fileID: 2095204698450453180, guid: 2156168fd3408c046aaed00c495bc8d2, type: 3}
   ClickGeneratorPrefab: {fileID: 1012995740432419828, guid: 7f476b2648ea5674b868bdf8c287ac4e, type: 3}
   Storage: {fileID: 11400000, guid: d0202783be85dc245ad3b35518aff1f3, type: 2}
+  generatorCostObject: {fileID: 11400000, guid: 365a149a5f75d134380b7af1d6fe92d6, type: 2}
   Tick: 1
   PickaxeCursor: {fileID: 2800000, guid: e510d0ec070249f41a919570a100a299, type: 3}
   NormalCursor: {fileID: 2800000, guid: 7aa7b851344cfeb44b130504f409c2db, type: 3}
   InteractCursor: {fileID: 2800000, guid: fe0856fec59bcbd4bb7e3727244b85cd, type: 3}
-  gridGameObject: {fileID: 0}
+  gridGameObject: {fileID: 246573364}
 --- !u!4 &1667231943
 Transform:
   m_ObjectHideFlags: 0
@@ -1884,3 +1990,4 @@ SceneRoots:
   - {fileID: 1377657459}
   - {fileID: 1753792917}
   - {fileID: 246573366}
+  - {fileID: 418012630}

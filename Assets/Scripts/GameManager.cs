@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
 using System.Linq;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,13 +15,19 @@ public class GameManager : MonoBehaviour
     private PowerSystem powerSystem;
     private BuildSystem buildSystem;
     private CursorChangerSystem cursorChangerSystem;
+    private UpgradeSystem upgradeSystem;
+    private GeneratorSystem generator;
+    private CrankSystem crankSystem;
 
     private List<IPowerProducer> powerProducers = new List<IPowerProducer>();
     private List<IPowerConsumer> powerConsumers = new List<IPowerConsumer>();
 
+    private List<Light> lights = new List<Light>();
+
     [SerializeField] private GameObject lightPrefab;
     [SerializeField] private GameObject ClickGeneratorPrefab;
     [SerializeField] private PowerStorage Storage;
+    [SerializeField] private CostObject generatorCostObject;
     [SerializeField] private float Tick = 1; // How many seconds per tick?
 
     [SerializeField] private Texture2D PickaxeCursor;
@@ -34,9 +41,35 @@ public class GameManager : MonoBehaviour
         buildSystem = gameObject.AddComponent<BuildSystem>();
         powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
         gridGameObject.gridCreated.AddListener(SetupInitialGridObjects);
+        upgradeSystem = gameObject.AddComponent<UpgradeSystem>();
+        generator = gameObject.AddComponent<GeneratorSystem>();
 
         SetupCursorChangingSystem();
         SetupClickHandler();
+    }
+
+    public void AddGenerator()
+    {
+        Debug.Log("Upgraing Generator");
+        upgradeSystem.UpgradeItem(generator);
+    }
+
+    public void UpgradeLights()
+    {
+        Debug.Log("Upgrading Lights");
+        foreach (Light light in lights)
+        {
+            if (light != null)
+            {
+                upgradeSystem.UpgradeItem(light);
+            }
+        }
+    }
+
+    public void UpgradeCrank()
+    {
+        Debug.Log("Upgrading Crank!");
+        upgradeSystem.UpgradeItem(crankSystem);
     }
 
     private void SetupCursorChangingSystem()
@@ -63,6 +96,7 @@ public class GameManager : MonoBehaviour
     private void SetupClickGenerator()
     {
         GameObject clickGenerator = Instantiate(ClickGeneratorPrefab);
+        crankSystem = clickGenerator.GetComponent<CrankSystem>();
         clickGenerator.transform.position = gridGameObject.transform.GetChild(1).position;
         GridCell initCell = gridGameObject.transform.GetChild(1).GetComponent<GridCell>();
 
@@ -77,6 +111,7 @@ public class GameManager : MonoBehaviour
         GridCell initCell = gridGameObject.transform.GetChild(2).GetComponent<GridCell>();
 
         initCell.SetOccupant(initialLight);
+        lights.Add(initialLight.GetComponent<Light>());
         RemoveFogPanels(initCell);
     }
 
@@ -108,6 +143,7 @@ public class GameManager : MonoBehaviour
             Storage.Drain(5);
             IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
             powerConsumers.Add(consumer);
+            lights.Add(newObject.GetComponent<Light>());
         }
         else
         {
