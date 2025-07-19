@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable
+public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable, ICursorHint
 {
     public int Produce => 1;
     public PowerStorage PowerStorage;
@@ -10,4 +10,6 @@ public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable
         Debug.Log("Interacted with Crank System");
         PowerStorage.Store(Produce);
     }
+
+    public CursorType GetCursorType() => CursorType.Interact;
 }

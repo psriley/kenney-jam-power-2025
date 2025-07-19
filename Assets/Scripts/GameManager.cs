@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private ClickHandler clickHandler;
     private PowerSystem powerSystem;
     private BuildSystem buildSystem;
+    private CursorChangerSystem cursorChangerSystem;
 
     private List<IPowerProducer> powerProducers = new List<IPowerProducer>();
     private List<IPowerConsumer> powerConsumers = new List<IPowerConsumer>();
@@ -22,16 +23,35 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PowerStorage Storage;
     [SerializeField] private float Tick = 1; // How many seconds per tick?
 
+    [SerializeField] private Texture2D PickaxeCursor;
+    [SerializeField] private Texture2D NormalCursor;
+    [SerializeField] private Texture2D InteractCursor;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        clickHandler = gameObject.AddComponent<ClickHandler>();
         buildSystem = gameObject.AddComponent<BuildSystem>();
-        clickHandler.buildEvent.AddListener(BuildSomething);
         powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
+
+        SetupCursorChangingSystem();
+        SetupClickHandler();
         SetupClickGenerator();
     }
 
+
+    private void SetupCursorChangingSystem()
+    {
+        cursorChangerSystem = gameObject.AddComponent<CursorChangerSystem>();
+        cursorChangerSystem.PickaxeCursor = PickaxeCursor;
+        cursorChangerSystem.InteractCursor = InteractCursor;
+        cursorChangerSystem.NormalCursor = NormalCursor;
+    }
+
+    private void SetupClickHandler()
+    {
+        clickHandler = gameObject.AddComponent<ClickHandler>();
+        clickHandler.buildEvent.AddListener(BuildSomething);
+    }
     private void SetupClickGenerator()
     {
         GameObject clickGenerator = Instantiate(ClickGeneratorPrefab);
