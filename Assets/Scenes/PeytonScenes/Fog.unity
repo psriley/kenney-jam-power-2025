@@ -1428,6 +1428,9 @@ MonoBehaviour:
   ClickGeneratorPrefab: {fileID: 1012995740432419828, guid: 7f476b2648ea5674b868bdf8c287ac4e, type: 3}
   Storage: {fileID: 11400000, guid: d0202783be85dc245ad3b35518aff1f3, type: 2}
   Tick: 1
+  PickaxeCursor: {fileID: 2800000, guid: e510d0ec070249f41a919570a100a299, type: 3}
+  NormalCursor: {fileID: 2800000, guid: 7aa7b851344cfeb44b130504f409c2db, type: 3}
+  InteractCursor: {fileID: 2800000, guid: fe0856fec59bcbd4bb7e3727244b85cd, type: 3}
 --- !u!4 &1667231943
 Transform:
   m_ObjectHideFlags: 0

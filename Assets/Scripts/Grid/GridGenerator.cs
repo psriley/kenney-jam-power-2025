@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Random = System.Random;
 using System.Linq;
+using UnityEngine.Events;
 
 public class GridGenerator : MonoBehaviour
 {
@@ -25,14 +26,19 @@ public class GridGenerator : MonoBehaviour
 
     private Grid grid;
     private HashSet<Vector3Int> visitedTiles = new HashSet<Vector3Int>();
+    private GameObject fogRootGameObject;
 
     public Dictionary<GridCell, GameObject> gridFogTiles = new Dictionary<GridCell, GameObject>();
     public Dictionary<Vector3, GridCell> gridCellPositions = new Dictionary<Vector3, GridCell>();
+
+    public UnityEvent gridCreated = new UnityEvent();
 
     void Start()
     {
         grid = GetComponent<Grid>();
         Generate();
+        gridCreated?.Invoke();
+        Debug.Log("Grid has been created");
     }
 
     private void ClearGrid()
@@ -124,7 +130,7 @@ public class GridGenerator : MonoBehaviour
 
         gridCellPositions.Add(gridPosition, gridCell);
 
-        GameObject fog = Instantiate(fogTilePrefab, gridCell.transform.position + Vector3.up * 0.1f, Quaternion.Euler(90f, 0f, 0f), gridCell.transform);
+        GameObject fog = Instantiate(fogTilePrefab, gridCell.transform.position + Vector3.up * 0.1f, Quaternion.Euler(90f, 0f, 0f), fogRootGameObject.transform);
         gridFogTiles[gridCell] = fog;
 
         if (isMetalTile)
@@ -138,6 +144,11 @@ public class GridGenerator : MonoBehaviour
     private void Generate()
     {
         ClearGrid();
+
+        fogRootGameObject = new GameObject("Fog");
+        fogRootGameObject.transform.parent = grid.transform;
+
+        // fogRootGameObject = Instantiate(fogRootGameObject, grid.transform);
 
         int randSeed = GetSeed();
         var rand = new System.Random(randSeed);
