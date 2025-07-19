@@ -60,6 +60,36 @@ public class GameManager : MonoBehaviour
         {
             GameObject newObject = buildSystem.Build(light, cell);
             cell.SetOccupant(newObject);
+
+            GridGenerator gg = cell.GetComponentInParent<GridGenerator>();
+
+            if (gg.gridFogTiles.TryGetValue(cell, out GameObject fogTile))
+            {
+                Destroy(fogTile);
+
+                List<Vector3> neighborPositions = new List<Vector3>
+                {
+                    cell.transform.position + new Vector3(1, 0, 0),
+                    cell.transform.position + new Vector3(-1, 0, 0),
+                    cell.transform.position + new Vector3(0, 0, 1),
+                    cell.transform.position + new Vector3(0, 0, -1)
+                };
+
+                foreach (Vector3 neighborPos in neighborPositions)
+                {
+                    Debug.Log(neighborPos);
+                    if (gg.gridCellPositions.TryGetValue(neighborPos, out GridCell neighborCell))
+                    {
+                        if (gg.gridFogTiles.TryGetValue(neighborCell, out GameObject nfogTile))
+                        {
+                            Destroy(nfogTile);
+                        }
+                    }
+                }
+                    // Vector3 neighborPos = cell.transform.position + new Vector3(1, 0, 0);
+                
+            }
+
             Storage.Drain(5);
             IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
             powerConsumers.Add(consumer);

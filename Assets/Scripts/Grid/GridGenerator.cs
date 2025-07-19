@@ -15,6 +15,7 @@ public class GridGenerator : MonoBehaviour
     [SerializeField] private int seed = 0;
 
     [Header("Generated Prefabs")]
+    [SerializeField] private GameObject fogTilePrefab;
     [SerializeField] private GameObject floorTilePrefab;
     [SerializeField] private GameObject metalTilePrefab;
     [SerializeField] private int metalTileChance = 20;
@@ -24,6 +25,9 @@ public class GridGenerator : MonoBehaviour
 
     private Grid grid;
     private HashSet<Vector3Int> visitedTiles = new HashSet<Vector3Int>();
+
+    public Dictionary<GridCell, GameObject> gridFogTiles = new Dictionary<GridCell, GameObject>();
+    public Dictionary<Vector3, GridCell> gridCellPositions = new Dictionary<Vector3, GridCell>();
 
     void Start()
     {
@@ -113,11 +117,18 @@ public class GridGenerator : MonoBehaviour
             prefabToGenerate = metalTilePrefab;
         }
 
-        GameObject createdObject = Instantiate(prefabToGenerate, new Vector3(position.x, 0, position.z), Quaternion.identity, transform);
+        Vector3 gridPosition = new Vector3(position.x, 0, position.z);
+        GameObject createdObject = Instantiate(prefabToGenerate, gridPosition, Quaternion.identity, transform);
 
         GridCell gridCell = createdObject.AddComponent<GridCell>();
 
-        if (isMetalTile) {
+        gridCellPositions.Add(gridPosition, gridCell);
+
+        GameObject fog = Instantiate(fogTilePrefab, gridCell.transform.position + Vector3.up * 0.1f, Quaternion.Euler(90f, 0f, 0f), gridCell.transform);
+        gridFogTiles[gridCell] = fog;
+
+        if (isMetalTile)
+        {
             gridCell.SetOccupant(createdObject);
         }
 
