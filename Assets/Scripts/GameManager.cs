@@ -56,12 +56,12 @@ public class GameManager : MonoBehaviour
 
     void BuildSomething(GridCell cell)
     {
-        foreach (var item in inventory.Container.Items)
+        foreach (var invSlot in inventory.Container.Items)
         {
-            if (item.ID == 0 && item.Amount >= 20)
+            if (invSlot.Item.Name == "Metal" && invSlot.Amount >= 20)
             {
                 buildSystem.Build(light, cell);
-                item.RemoveAmount(20);
+                invSlot.RemoveAmount(20);
             }
             else
             {
