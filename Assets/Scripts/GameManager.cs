@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     private float Timer;
 
+
+    public InventoryObject inventory;
     private ClickHandler clickHandler;
     private PowerSystem powerSystem;
     private BuildSystem buildSystem;
@@ -54,7 +56,17 @@ public class GameManager : MonoBehaviour
 
     void BuildSomething(GridCell cell)
     {
-        Debug.Log("Building something " + cell);
-        buildSystem.Build(light, cell);
+        foreach (var item in inventory.Container.Items)
+        {
+            if (item.ID == 0 && item.Amount >= 20)
+            {
+                buildSystem.Build(light, cell);
+                item.RemoveAmount(20);
+            }
+            else
+            {
+                Debug.Log("Don't have enough materials");
+            }
+        }
     }
 }

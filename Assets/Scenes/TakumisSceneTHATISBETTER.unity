@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7607682273901278008, guid: d1c7b12a25581524cb5e2a0de63b5b1f, type: 3}
-  size: {x: 1, y: 1}
+  size: {x: 10, y: 10}
 --- !u!156049354 &246573365
 Grid:
   m_ObjectHideFlags: 0
@@ -1524,6 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf47966de2350140b6c0ac21e8f398a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: b2849b5fad292b840b1e52a91df87495, type: 2}
   light: {fileID: 2095204698450453180, guid: 2156168fd3408c046aaed00c495bc8d2, type: 3}
   ClickGeneratorPrefab: {fileID: 1012995740432419828, guid: 7f476b2648ea5674b868bdf8c287ac4e, type: 3}
   Storage: {fileID: 11400000, guid: d0202783be85dc245ad3b35518aff1f3, type: 2}

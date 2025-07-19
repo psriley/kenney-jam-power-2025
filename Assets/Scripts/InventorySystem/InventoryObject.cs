@@ -63,4 +63,9 @@ public class InventorySlot
     {
         this.Amount += value;
     }
+
+    public void RemoveAmount(int value)
+    {
+        this.Amount -= value;
+    }
 }

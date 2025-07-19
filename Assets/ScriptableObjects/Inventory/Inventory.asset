@@ -20,4 +20,4 @@ MonoBehaviour:
         Name: Metal
         UIDisplay: {fileID: 21300000, guid: b2069127a64028547bfe8628b533bcc8, type: 3}
         Type: 0
-      Amount: 0
+      Amount: 20
