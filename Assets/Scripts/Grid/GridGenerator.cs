@@ -7,18 +7,23 @@ using System.Linq;
 public class GridGenerator : MonoBehaviour
 {
     [Header("Grid Settings")]
-    [SerializeField] private Vector2Int size = new Vector2Int(10, 10);
     [SerializeField] private int walkLength = 50;
 
     [Header("Seed Control")]
     [SerializeField] private bool useRandomSeed = true;
     [SerializeField] private int seed = 0;
 
-    public GameObject prefab;
+    [Header("Generated Prefabs")]
+    [SerializeField] private GameObject floorTilePrefab;
+    [SerializeField] private GameObject metalTilePrefab;
+    [SerializeField] private int metalTileChance = 20;
+
+
     public Dictionary<Vector3Int, bool> gridLights = new Dictionary<Vector3Int, bool>();
 
     private Camera cam;
     private Grid grid;
+    private HashSet<Vector3Int> visitedTiles = new HashSet<Vector3Int>();
 
     // private Vector3 cameraPositionTarget;
     // private float cameraSizeTarget;
@@ -31,7 +36,7 @@ public class GridGenerator : MonoBehaviour
         Generate();
     }
 
-    private void Generate()
+    private void ClearGrid()
     {
         foreach (Transform child in transform)
         {
@@ -39,18 +44,23 @@ public class GridGenerator : MonoBehaviour
         }
 
         gridLights.Clear();
+    }
 
+    private int GetSeed()
+    {
         int finalSeed = useRandomSeed ? DateTime.Now.GetHashCode() : seed;
-        var rand = new System.Random(finalSeed);
         Debug.Log("Using Seed: " + finalSeed);
+        return finalSeed;
+    }
 
-        var visitedTiles = new HashSet<Vector3Int>();
+    private void WalkTiles(System.Random rand)
+    {
         Vector3Int[] directions = new Vector3Int[]
         {
-            new Vector3Int(1, 0, 0),
-            new Vector3Int(-1, 0, 0),
-            new Vector3Int(0, 0, 1),
-            new Vector3Int(0, 0, -1)
+            Vector3Int.right,
+            Vector3Int.left,
+            Vector3Int.forward,
+            Vector3Int.back
         };
 
         Vector3Int current = new Vector3Int(0, 0, 0);
@@ -61,20 +71,39 @@ public class GridGenerator : MonoBehaviour
             Vector3Int dir = directions[rand.Next(directions.Length)];
             Vector3Int next = current + dir;
 
-            if (next.x >= 0 && next.x < size.x && next.z >= 0 && next.z < size.y)
-            {
-                current = next;
-                visitedTiles.Add(current);
-            }
+            current = next;
+            visitedTiles.Add(current);
+            GenerateTiles(current);
         }
+    }
 
-        foreach (var coordinate in visitedTiles)
+    void GenerateTiles(Vector3Int coordinate)
+    {
+        var position = grid.GetCellCenterWorld(coordinate);
+
+        // Hey is the chanc
+        Random random = new Random();
+        int randomNumberInRange = random.Next(101);
+
+        GameObject prefabToGenerate = floorTilePrefab;
+        if (randomNumberInRange < metalTileChance)
         {
-            var position = grid.GetCellCenterWorld(coordinate);
-            GridCell gridCell = Instantiate(prefab, new Vector3(position.x, 0, position.z), Quaternion.identity, transform)
-                .AddComponent<GridCell>();
-
-            gridLights[coordinate] = false;
+            prefabToGenerate = metalTilePrefab;
         }
+
+        GridCell gridCell = Instantiate(prefabToGenerate, new Vector3(position.x, 0, position.z), Quaternion.identity, transform)
+            .AddComponent<GridCell>();
+
+        gridLights[coordinate] = false;
+    }
+
+    private void Generate()
+    {
+        ClearGrid();
+
+        int randSeed = GetSeed();
+        var rand = new System.Random(randSeed);
+
+        WalkTiles(rand);
     }
 }

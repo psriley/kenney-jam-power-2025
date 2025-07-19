@@ -3,9 +3,8 @@ using UnityEngine;
 public class GridCell : MonoBehaviour
 {
     // Does this cell have a light on it
-    public bool isOccupied = false;
+    public bool IsOccupied => occupant != null;
     private GameObject occupant;
-
 
     public void SetOccupant(GameObject occupant)
     {

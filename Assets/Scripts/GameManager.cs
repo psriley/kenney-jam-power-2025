@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
         {
             if (invSlot.Item.Name == "Metal" && invSlot.Amount >= 20)
             {
-                buildSystem.Build(light, cell);
+                GameObject newObject = buildSystem.Build(light, cell);
+                cell.SetOccupant(newObject);
                 invSlot.RemoveAmount(20);
             }
             else

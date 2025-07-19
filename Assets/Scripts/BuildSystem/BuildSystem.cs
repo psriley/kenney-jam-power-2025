@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BuildSystem : MonoBehaviour
 {
-    public void Build(GameObject obj, GridCell cell)
+    public GameObject Build(GameObject obj, GridCell cell)
     {
-        Instantiate(obj, cell.transform);
+        return Instantiate(obj, cell.transform);
     }
 }

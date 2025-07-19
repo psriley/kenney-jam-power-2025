@@ -56,7 +56,7 @@ public class ClickHandler : MonoBehaviour
 
     void PlaceOnGridCell(GridCell cell)
     {
-        if (!cell.isOccupied)
+        if (!cell.IsOccupied)
         {
             buildEvent?.Invoke(cell);
             Debug.Log("Placing torch...");
