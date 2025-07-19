@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25a9ccce1fabae49960ae875a9eeb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkLength: 1000
+  walkLength: 2000
   initialGridSize: {x: 3, y: 0, z: 3}
   useRandomSeed: 0
   seed: -625757658

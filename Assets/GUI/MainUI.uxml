@@ -1,6 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; flex-direction: row; padding-top: 32px; padding-right: 32px; padding-bottom: 32px; padding-left: 32px;">
-        <ui:VisualElement name="Container" style="flex-grow: 1; justify-content: flex-end;">
+        <ui:VisualElement name="Container" style="flex-grow: 1; justify-content: space-between;">
+            <ui:VisualElement name="TopRightContainer" style="-unity-text-align: upper-right; align-items: flex-end; flex-direction: row; justify-content: flex-end;">
+                <ui:VisualElement name="ButtonsContainer" style="flex-direction: row;">
+                    <ui:Button text="Upgrade Light" name="UpgradeLight" style="width: auto; font-size: 24px;" />
+                    <ui:Button text="Add Generator&#10;" name="AddGenerator" style="width: auto; font-size: 24px;" />
+                    <ui:Button text="Upgrade Crank" name="UpgradeCrank" style="width: auto; font-size: 24px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
             <ui:VisualElement name="BottomRIghtContainer" style="-unity-text-align: upper-right;">
                 <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyValue" style="font-size: 48px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;">
                     <Bindings>
