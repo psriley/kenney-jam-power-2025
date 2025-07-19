@@ -22,18 +22,12 @@ public class GridGenerator : MonoBehaviour
 
     public Dictionary<Vector3Int, bool> gridLights = new Dictionary<Vector3Int, bool>();
 
-    private Camera cam;
     private Grid grid;
     private HashSet<Vector3Int> visitedTiles = new HashSet<Vector3Int>();
 
-    // private Vector3 cameraPositionTarget;
-    // private float cameraSizeTarget;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         grid = GetComponent<Grid>();
-        cam = Camera.main;
         Generate();
     }
 
