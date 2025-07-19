@@ -6,13 +6,19 @@ using System.Linq;
 
 public class GridGenerator : MonoBehaviour
 {
+    [Header("Grid Settings")]
+    [SerializeField] private Vector2Int size = new Vector2Int(10, 10);
+    [SerializeField] private int walkLength = 50;
+
+    [Header("Seed Control")]
+    [SerializeField] private bool useRandomSeed = true;
+    [SerializeField] private int seed = 0;
+
     public GameObject prefab;
-    public Vector2Int size = new Vector2Int(10, 10);
+    public Dictionary<Vector3Int, bool> gridLights = new Dictionary<Vector3Int, bool>();
 
     private Camera cam;
     private Grid grid;
-
-    public Dictionary<Vector3Int, bool> gridLights = new Dictionary<Vector3Int, bool>();
 
     // private Vector3 cameraPositionTarget;
     // private float cameraSizeTarget;
@@ -32,25 +38,43 @@ public class GridGenerator : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        var coordinates = new List<Vector3Int>();
+        gridLights.Clear();
 
-        for (int x = 0; x < size.x; x++)
+        int finalSeed = useRandomSeed ? DateTime.Now.GetHashCode() : seed;
+        var rand = new System.Random(finalSeed);
+        Debug.Log("Using Seed: " + finalSeed);
+
+        var visitedTiles = new HashSet<Vector3Int>();
+        Vector3Int[] directions = new Vector3Int[]
         {
-            for (int y = 0; y < size.y; y++)
+            new Vector3Int(1, 0, 0),
+            new Vector3Int(-1, 0, 0),
+            new Vector3Int(0, 0, 1),
+            new Vector3Int(0, 0, -1)
+        };
+
+        Vector3Int current = new Vector3Int(0, 0, 0);
+        visitedTiles.Add(current);
+
+        for (int i = 0; i < walkLength; i++)
+        {
+            Vector3Int dir = directions[rand.Next(directions.Length)];
+            Vector3Int next = current + dir;
+
+            if (next.x >= 0 && next.x < size.x && next.z >= 0 && next.z < size.y)
             {
-                coordinates.Add(new Vector3Int(x, 0, y));
-                gridLights[new Vector3Int(x, 0, y)] = false;
+                current = next;
+                visitedTiles.Add(current);
             }
         }
 
-        var bounds = new Bounds();
-        var index = 0;
-        var rand = new Random(420);
-
-        foreach (var coordinate in coordinates)
+        foreach (var coordinate in visitedTiles)
         {
             var position = grid.GetCellCenterWorld(coordinate);
-            GridCell gridCell = Instantiate(prefab, new Vector3(position.x, 0, position.z), Quaternion.identity, transform).AddComponent<GridCell>();
+            GridCell gridCell = Instantiate(prefab, new Vector3(position.x, 0, position.z), Quaternion.identity, transform)
+                .AddComponent<GridCell>();
+
+            gridLights[coordinate] = false;
         }
     }
 }

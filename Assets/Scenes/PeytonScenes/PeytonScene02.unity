@@ -211,8 +211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25a9ccce1fabae49960ae875a9eeb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: {x: 100, y: 100}
+  walkLength: 1000
+  useRandomSeed: 0
+  seed: -625757658
   prefab: {fileID: 7607682273901278008, guid: d1c7b12a25581524cb5e2a0de63b5b1f, type: 3}
-  size: {x: 10, y: 10}
 --- !u!156049354 &246573365
 Grid:
   m_ObjectHideFlags: 0
