@@ -56,20 +56,33 @@ public class GameManager : MonoBehaviour
 
     void BuildSomething(GridCell cell)
     {
-        foreach (var invSlot in inventory.Container.Items)
+        if (Storage.Power >= 5)
         {
-            if (invSlot.Item.Name == "Metal" && invSlot.Amount >= 20)
-            {
-                GameObject newObject = buildSystem.Build(light, cell);
-                cell.SetOccupant(newObject);
-                invSlot.RemoveAmount(20);
-                IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
-                powerConsumers.Add(consumer);
-            }
-            else
-            {
-                Debug.Log("Don't have enough materials");
-            }
+            GameObject newObject = buildSystem.Build(light, cell);
+            cell.SetOccupant(newObject);
+            Storage.Drain(5);
+            IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
+            powerConsumers.Add(consumer);
         }
+        else
+        {
+            Debug.Log("Don't have enough power");
+        }
+
+        // foreach (var invSlot in inventory.Container.Items)
+        //     {
+        //         if (invSlot.Item.Name == "Metal" && invSlot.Amount >= 20)
+        //         {
+        //             GameObject newObject = buildSystem.Build(light, cell);
+        //             cell.SetOccupant(newObject);
+        //             invSlot.RemoveAmount(20);
+        //             IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
+        //             powerConsumers.Add(consumer);
+        //         }
+        //         else
+        //         {
+        //             Debug.Log("Don't have enough materials");
+        //         }
+        //     }
     }
 }
