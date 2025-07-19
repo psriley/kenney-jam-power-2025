@@ -8,6 +8,7 @@ public class GridGenerator : MonoBehaviour
 {
     [Header("Grid Settings")]
     [SerializeField] private int walkLength = 50;
+    [SerializeField] private Vector3Int initialGridSize = new Vector3Int(5, 0, 5);
 
     [Header("Seed Control")]
     [SerializeField] private bool useRandomSeed = true;
@@ -63,18 +64,42 @@ public class GridGenerator : MonoBehaviour
             Vector3Int.back
         };
 
-        Vector3Int current = new Vector3Int(0, 0, 0);
+        Vector3Int current = GenerateInitialTiles();
         visitedTiles.Add(current);
 
         for (int i = 0; i < walkLength; i++)
         {
             Vector3Int dir = directions[rand.Next(directions.Length)];
             Vector3Int next = current + dir;
-
             current = next;
+
+            // If the tile was already visited just skip it
+            if (visitedTiles.Contains(current))
+            {
+                continue;
+            }
+
             visitedTiles.Add(current);
             GenerateTiles(current);
         }
+    }
+
+    private Vector3Int GenerateInitialTiles() {
+        Vector3Int current = new Vector3Int(0, 0, 0);
+        
+        // Generate based on some grid initial size
+        for (int i = -initialGridSize.x/2; i < initialGridSize.x; i ++)
+        {
+            for (int j = -initialGridSize.z / 2; j < initialGridSize.z; j ++)
+            {
+                Vector3Int coords = new Vector3Int(i, 0, j);
+                GenerateTiles(coords);
+                visitedTiles.Add(coords);
+                current = coords;
+            }
+        }
+
+        return current; // Returns end of coords
     }
 
     void GenerateTiles(Vector3Int coordinate)

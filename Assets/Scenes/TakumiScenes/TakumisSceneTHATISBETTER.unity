@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkLength: 1000
+  initialGridSize: {x: 3, y: 0, z: 3}
   useRandomSeed: 0
   seed: -625757658
   floorTilePrefab: {fileID: 7607682273901278008, guid: d1c7b12a25581524cb5e2a0de63b5b1f, type: 3}
