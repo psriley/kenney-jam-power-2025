@@ -41,11 +41,26 @@ public class GameManager : MonoBehaviour
         buildSystem = gameObject.AddComponent<BuildSystem>();
         powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
         gridGameObject.gridCreated.AddListener(SetupInitialGridObjects);
-        upgradeSystem = gameObject.AddComponent<UpgradeSystem>();
         generator = gameObject.AddComponent<GeneratorSystem>();
 
+        SetupGenerator();
         SetupCursorChangingSystem();
         SetupClickHandler();
+        SetupUpgradeSystem();
+    }
+
+    private void SetupGenerator()
+    {
+        generator = gameObject.AddComponent<GeneratorSystem>();
+        generator.costObject = generatorCostObject;
+        powerProducers.Add(generator);
+    }
+
+    private void SetupUpgradeSystem()
+    {
+        upgradeSystem = gameObject.AddComponent<UpgradeSystem>();
+        upgradeSystem.inventoryObject = inventory;
+        upgradeSystem.powerStorage = Storage;
     }
 
     public void AddGenerator()
@@ -62,6 +77,7 @@ public class GameManager : MonoBehaviour
             if (light != null)
             {
                 upgradeSystem.UpgradeItem(light);
+                RemoveFogPanels(light);
             }
         }
     }
@@ -111,7 +127,8 @@ public class GameManager : MonoBehaviour
         GridCell initCell = gridGameObject.transform.GetChild(2).GetComponent<GridCell>();
 
         initCell.SetOccupant(initialLight);
-        lights.Add(initialLight.GetComponent<Light>());
+        Light lightScript = initialLight.GetComponent<Light>();
+        lights.Add(lightScript);
         RemoveFogPanels(initCell);
     }
 
@@ -148,6 +165,18 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Don't have enough power");
+        }
+    }
+
+    private void RemoveFogPanels(Light light)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(light.transform.position, light.lightRadius);
+        foreach (Collider hit in hitColliders)
+        {
+            if (hit.CompareTag("Fog"))
+            {
+                Destroy(hit.gameObject);
+            }
         }
     }
 

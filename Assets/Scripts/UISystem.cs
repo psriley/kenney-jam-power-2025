@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -7,6 +8,7 @@ public class UISystem : MonoBehaviour
     private Button upgradeCrankButton;
     private Button upgradeLightButton;
     private Button createGeneratorButton;
+    private Button testButton;
 
     public UnityEvent UpgradeCrankClicked;
     public UnityEvent UpgradeLightClicked;

@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightRadius: 2
+  costObject: {fileID: 11400000, guid: a6a78ed897f786848ad126cd8f37919f, type: 2}
 --- !u!1 &2182803112971655242
 GameObject:
   m_ObjectHideFlags: 0

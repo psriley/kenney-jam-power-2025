@@ -1,28 +1,26 @@
+using System;
 using UnityEngine;
 
 public class GeneratorSystem: MonoBehaviour, IPowerProducer, IUpgradeable
 {
     public CostObject costObject;
 
-    public int startProduce = 5;
-    public int produce = 0;
+    private int startProduce = 5;
+    private int produce = 0;
     public int Produce => produce;
-
-    public GeneratorSystem(CostObject costObject)
-    {
-        this.costObject = costObject;
-    }
 
     public CostObject CostObject() => costObject;
 
     public void UpgradeLevel(int val)
     {
-        if (val == 0)
+        if (produce == 0)
         {
             produce = startProduce;
+            Debug.Log("Upgrade Generator to " + Produce);
             return;
         }
 
         produce += produce * val;
+        Debug.Log("Upgrade Generator to " + Produce);
     }
 }
