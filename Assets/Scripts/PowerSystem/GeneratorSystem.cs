@@ -5,22 +5,15 @@ public class GeneratorSystem: MonoBehaviour, IPowerProducer, IUpgradeable
 {
     public CostObject costObject;
 
-    private int startProduce = 5;
-    private int produce = 0;
-    public int Produce => produce;
+    private int productionPerGen = 5;
+    public int numGenerators = 0;
+    public int Produce => numGenerators * productionPerGen;
 
     public CostObject CostObject() => costObject;
 
     public void UpgradeLevel(int val)
     {
-        if (produce == 0)
-        {
-            produce = startProduce;
-            Debug.Log("Upgrade Generator to " + Produce);
-            return;
-        }
-
-        produce += produce * val;
+        numGenerators += val;
         Debug.Log("Upgrade Generator to " + Produce);
     }
 }

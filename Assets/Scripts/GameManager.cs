@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PowerStorage Storage;
     [SerializeField] private CostObject generatorCostObject;
     [SerializeField] private float Tick = 1; // How many seconds per tick?
+    [SerializeField] private UIScriptableObject UIScriptableObject;
 
     [SerializeField] private Texture2D PickaxeCursor;
     [SerializeField] private Texture2D NormalCursor;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Upgraing Generator");
         upgradeSystem.UpgradeItem(generator);
+        UIScriptableObject.NumGen = generator.numGenerators;
     }
 
     public void UpgradeLights()
@@ -130,6 +132,7 @@ public class GameManager : MonoBehaviour
         Light lightScript = initialLight.GetComponent<Light>();
         lights.Add(lightScript);
         RemoveFogPanels(initCell);
+        UIScriptableObject.NumLights = 1;
     }
 
     // Update is called once per frame
@@ -146,6 +149,7 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         Storage.ResetPower();
+        UIScriptableObject.Reset();
     }
 
     void BuildSomething(GridCell cell)
@@ -161,6 +165,7 @@ public class GameManager : MonoBehaviour
             IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
             powerConsumers.Add(consumer);
             lights.Add(newObject.GetComponent<Light>());
+            UIScriptableObject.NumLights = lights.Count();
         }
         else
         {

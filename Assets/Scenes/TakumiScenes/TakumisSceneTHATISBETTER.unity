@@ -218,7 +218,7 @@ MonoBehaviour:
   fogTilePrefab: {fileID: 8392744087314598709, guid: 184fa5e2bd1d34840815c7b7abe704a0, type: 3}
   floorTilePrefab: {fileID: 7607682273901278008, guid: d1c7b12a25581524cb5e2a0de63b5b1f, type: 3}
   metalTilePrefab: {fileID: 5416199331605499275, guid: 5f2fedacb09050346b00e0e6160623a6, type: 3}
-  metalTileChance: 2
+  metalTileChance: 5
   gridCreated:
     m_PersistentCalls:
       m_Calls: []
@@ -279,8 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costObject: {fileID: 11400000, guid: 365a149a5f75d134380b7af1d6fe92d6, type: 2}
-  startProduce: 0
-  produce: 5
+  numGenerators: 0
 --- !u!4 &418012630
 Transform:
   m_ObjectHideFlags: 0
@@ -1210,7 +1209,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -1616,6 +1615,7 @@ MonoBehaviour:
   Storage: {fileID: 11400000, guid: d0202783be85dc245ad3b35518aff1f3, type: 2}
   generatorCostObject: {fileID: 11400000, guid: 365a149a5f75d134380b7af1d6fe92d6, type: 2}
   Tick: 1
+  UIScriptableObject: {fileID: 11400000, guid: a32c5b70d2244924494ebbae0aa826ad, type: 2}
   PickaxeCursor: {fileID: 2800000, guid: e510d0ec070249f41a919570a100a299, type: 3}
   NormalCursor: {fileID: 2800000, guid: 7aa7b851344cfeb44b130504f409c2db, type: 3}
   InteractCursor: {fileID: 2800000, guid: fe0856fec59bcbd4bb7e3727244b85cd, type: 3}
