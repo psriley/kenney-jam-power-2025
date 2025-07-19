@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class GridCell : MonoBehaviour, IInteractable
+public class GridCell : MonoBehaviour
 {
     // Does this cell have a light on it
     public bool isOccupied = false;
     private GameObject occupant;
 
-    public void Interact()
+
+    public void SetOccupant(GameObject occupant)
     {
-        if (!occupant)
-        {
-            // PlaceLight();
-        }
+        this.occupant = occupant;
+    }
+
+    public Vector3 GetOccupantPosition() { 
+        return transform.position;
     }
 }

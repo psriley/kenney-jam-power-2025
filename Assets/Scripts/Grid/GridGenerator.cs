@@ -47,40 +47,10 @@ public class GridGenerator : MonoBehaviour
         var index = 0;
         var rand = new Random(420);
 
-        // foreach (var coordinate in coordinates.OrderBy(t => rand.Next()).Take(coordinates.Count))
-        // {
-        //     var position = grid.GetCellCenterWorld(coordinate);
-        //     var spawned = Instantiate(prefab, position, Quaternion.identity, transform);
-        //     // spawned.Init(coordinate);
-        //     bounds.Encapsulate(position);
-        // }
-
-        foreach (var coordinate in coordinates.OrderBy(t => rand.Next()))
+        foreach (var coordinate in coordinates)
         {
             var position = grid.GetCellCenterWorld(coordinate);
-            // GridCell cell = new GridCell();
-            Instantiate(prefab, new Vector3(position.x, 0, position.z), Quaternion.identity, transform).AddComponent<GridCell>();
+            GridCell gridCell = Instantiate(prefab, new Vector3(position.x, 0, position.z), Quaternion.identity, transform).AddComponent<GridCell>();
         }
-
-        Debug.Log("Generated: " + coordinates.Count);
-
-        // SetCamera(bounds);
-    }
-
-    // private void SetCamera(Bounds bounds)
-    // {
-    //     bounds.Expand(2);
-
-    //     var vertical = bounds.size.y;
-    //     var horizontal = bounds.size.x * cam.pixelHeight / cam.pixelWidth;
-
-    //     cameraPositionTarget = bounds.center + Vector3.back;
-    //     cameraSizeTarget = Mathf.Max(horizontal, vertical) * 0.5f;
-    // }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

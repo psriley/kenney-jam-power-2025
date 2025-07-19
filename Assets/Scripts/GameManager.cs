@@ -9,8 +9,12 @@ public class GameManager : MonoBehaviour
 
     private ClickHandler clickHandler;
     private PowerSystem powerSystem;
+    private BuildSystem buildSystem;
+
     private List<IPowerProducer> powerProducers = new List<IPowerProducer>();
     private List<IPowerConsumer> powerConsumers = new List<IPowerConsumer>();
+
+    [SerializeField] private GameObject light;
 
     [SerializeField] private GameObject ClickGeneratorPrefab;
     [SerializeField] private PowerStorage Storage;
@@ -20,6 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         clickHandler = gameObject.AddComponent<ClickHandler>();
+        buildSystem = gameObject.AddComponent<BuildSystem>();
         clickHandler.buildEvent.AddListener(BuildSomething);
         powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
         SetupClickGenerator();
@@ -50,5 +55,6 @@ public class GameManager : MonoBehaviour
     void BuildSomething(GridCell cell)
     {
         Debug.Log("Building something " + cell);
+        buildSystem.Build(light, cell);
     }
 }
