@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ClickGeneratorPrefab;
     [SerializeField] private PowerStorage Storage;
     [SerializeField] private CostObject generatorCostObject;
+    [SerializeField] private CostObject lightCostObject;
+    [SerializeField] private CostObject crankCostObject;
     [SerializeField] private float Tick = 1; // How many seconds per tick?
     [SerializeField] private UIScriptableObject UIScriptableObject;
     [SerializeField] private ItemObject metalObejct;
@@ -91,28 +93,31 @@ public class GameManager : MonoBehaviour
 
     public void AddGenerator()
     {
-        Debug.Log("Upgraing Generator");
-        upgradeSystem.UpgradeItem(generator);
+        if (!upgradeSystem.HasFunds(generator)) return;
+
+        upgradeSystem.UpgradeItem(generator, true);
         UIScriptableObject.NumGen = generator.numGenerators;
     }
 
     public void UpgradeLights()
     {
-        Debug.Log("Upgrading Lights");
         foreach (Light light in lights)
         {
-            if (light != null)
+            if (light != null && upgradeSystem.HasFunds(light))
             {
-                upgradeSystem.UpgradeItem(light);
+                // We don't want to charge lights for each light
+                upgradeSystem.UpgradeItem(light, false);
                 RemoveFogPanels(light);
             }
         }
+        Storage.Drain(lightCostObject.Cost);
+        upgradeSystem.IncreaseCost(lightCostObject);
     }
 
     public void UpgradeCrank()
     {
-        Debug.Log("Upgrading Crank!");
-        upgradeSystem.UpgradeItem(crankSystem);
+        upgradeSystem.UpgradeItem(crankSystem, true);
+        upgradeSystem.IncreaseCost(crankCostObject);
     }
 
     private void SetupCursorChangingSystem()
@@ -196,6 +201,10 @@ public class GameManager : MonoBehaviour
         Storage.ResetPower();
         UIScriptableObject.Reset();
         inventory.Clear();
+
+        generatorCostObject.Cost = 20;
+        lightCostObject.Cost = 50;
+        crankCostObject.Cost = 100;
     }
 
     void BuildSomething(GridCell cell)

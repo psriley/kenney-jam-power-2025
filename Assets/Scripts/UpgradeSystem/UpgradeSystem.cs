@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using UnityEngine;
 
 public class UpgradeSystem : MonoBehaviour
@@ -18,27 +19,32 @@ public class UpgradeSystem : MonoBehaviour
         return false;
     }
 
-    public void UpgradeItem(IUpgradeable upgradeable)
+    public void UpgradeItem(IUpgradeable upgradeable, bool drainStorage)
     {
-        if (HasFunds(upgradeable))
-        {
-            int cost = upgradeable.CostObject().Cost;
-            ResourceCost resource = upgradeable.CostObject().ResourceCost;
+        CostObject costObject = upgradeable.CostObject();
+        int cost = costObject.Cost;
+        ResourceCost resource = costObject.ResourceCost;
 
-            if (resource == ResourceCost.Energy)
-            {
-                powerStorage.Drain(cost);
-            }
-            if (resource == ResourceCost.Metal)
-            {
-                inventoryObject.GetSlotByID(0).Amount -= cost;
-            }
-            upgradeable.UpgradeLevel(1);
-        }
-        else
+        if (resource == ResourceCost.Energy && drainStorage)
         {
-            Debug.Log("Not enough resources to upgrade.");
+            powerStorage.Drain(cost);
         }
+        if (resource == ResourceCost.Metal && drainStorage)
+        {
+            inventoryObject.GetSlotByID(0).Amount -= cost;
+        }
+
+        upgradeable.UpgradeLevel(1);
+    }
+
+    public void IncreaseCost(CostObject costObject)
+    {
+        if (costObject.ResourceCost == ResourceCost.Metal)
+        {
+            return;
+        }
+
+        costObject.Cost *= 4;
     }
 }
 
