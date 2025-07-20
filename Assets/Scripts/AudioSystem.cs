@@ -16,9 +16,17 @@ public class AudioSystem : MonoBehaviour
     [SerializeField] private List<AudioClip> crankSounds;
     [SerializeField] private List<AudioClip> alarmSounds;
     [SerializeField] private AudioClip uiSound;
+    [SerializeField] private AudioClip defaultMusic;
 
     private Coroutine alarmCoroutine;
     private bool alarmActive = false;
+
+    private void Start()
+    {
+        musicAudioSource.resource = defaultMusic;
+        musicAudioSource.loop = true;
+        musicAudioSource.Play();
+    }
 
     private AudioClip RandomSound(List<AudioClip> sounds)
     {
