@@ -77,4 +77,10 @@ public class UISystem : MonoBehaviour
     {
         Debug.Log("Game shows that it is over bro");
     }
+
+    public void CancelGameOverError()
+    {
+        VisualElement error = root.Q("ErrorMessage");
+        error.style.display = DisplayStyle.None;
+    }
 }

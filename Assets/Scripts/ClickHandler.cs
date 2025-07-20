@@ -12,7 +12,7 @@ public class ClickHandler : MonoBehaviour
     {
         buildEvent = new UnityEvent<GridCell>();
         inputActions = new UserInputActions();
-        inputActions.UI.Click.performed += ctx => OnInteract();
+        inputActions.Power.Crank.performed += ctx => OnInteract();
     }
 
     private void OnEnable()

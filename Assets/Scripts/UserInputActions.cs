@@ -1076,6 +1076,74 @@ public partial class @UserInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Power"",
+            ""id"": ""195877e6-638d-4c91-8f2b-8c7c6a3f5175"",
+            ""actions"": [
+                {
+                    ""name"": ""Crank"",
+                    ""type"": ""Button"",
+                    ""id"": ""311e2997-715a-47db-9829-790398f56882"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetCamToCrank"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a1e0f60-cd73-48b4-9ef9-77bff89d8973"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FastCamMove"",
+                    ""type"": ""Button"",
+                    ""id"": ""2eb216c7-06d8-4fe3-80ab-e8a2482e7e9f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3f456ceb-fb04-4949-871d-19250e8024da"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Crank"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3534f9d0-da7d-4ea3-bd8e-0d92eb6b5333"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetCamToCrank"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06d6a746-a126-46dd-b558-621302cf20e2"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FastCamMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1164,12 +1232,18 @@ public partial class @UserInputActions: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // Power
+        m_Power = asset.FindActionMap("Power", throwIfNotFound: true);
+        m_Power_Crank = m_Power.FindAction("Crank", throwIfNotFound: true);
+        m_Power_ResetCamToCrank = m_Power.FindAction("ResetCamToCrank", throwIfNotFound: true);
+        m_Power_FastCamMove = m_Power.FindAction("FastCamMove", throwIfNotFound: true);
     }
 
     ~@UserInputActions()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, UserInputActions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, UserInputActions.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Power.enabled, "This will cause a leak and performance issues, UserInputActions.Power.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1620,6 +1694,124 @@ public partial class @UserInputActions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="UIActions" /> instance referencing this action map.
     /// </summary>
     public UIActions @UI => new UIActions(this);
+
+    // Power
+    private readonly InputActionMap m_Power;
+    private List<IPowerActions> m_PowerActionsCallbackInterfaces = new List<IPowerActions>();
+    private readonly InputAction m_Power_Crank;
+    private readonly InputAction m_Power_ResetCamToCrank;
+    private readonly InputAction m_Power_FastCamMove;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Power".
+    /// </summary>
+    public struct PowerActions
+    {
+        private @UserInputActions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public PowerActions(@UserInputActions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Power/Crank".
+        /// </summary>
+        public InputAction @Crank => m_Wrapper.m_Power_Crank;
+        /// <summary>
+        /// Provides access to the underlying input action "Power/ResetCamToCrank".
+        /// </summary>
+        public InputAction @ResetCamToCrank => m_Wrapper.m_Power_ResetCamToCrank;
+        /// <summary>
+        /// Provides access to the underlying input action "Power/FastCamMove".
+        /// </summary>
+        public InputAction @FastCamMove => m_Wrapper.m_Power_FastCamMove;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Power; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="PowerActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(PowerActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="PowerActions" />
+        public void AddCallbacks(IPowerActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PowerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PowerActionsCallbackInterfaces.Add(instance);
+            @Crank.started += instance.OnCrank;
+            @Crank.performed += instance.OnCrank;
+            @Crank.canceled += instance.OnCrank;
+            @ResetCamToCrank.started += instance.OnResetCamToCrank;
+            @ResetCamToCrank.performed += instance.OnResetCamToCrank;
+            @ResetCamToCrank.canceled += instance.OnResetCamToCrank;
+            @FastCamMove.started += instance.OnFastCamMove;
+            @FastCamMove.performed += instance.OnFastCamMove;
+            @FastCamMove.canceled += instance.OnFastCamMove;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="PowerActions" />
+        private void UnregisterCallbacks(IPowerActions instance)
+        {
+            @Crank.started -= instance.OnCrank;
+            @Crank.performed -= instance.OnCrank;
+            @Crank.canceled -= instance.OnCrank;
+            @ResetCamToCrank.started -= instance.OnResetCamToCrank;
+            @ResetCamToCrank.performed -= instance.OnResetCamToCrank;
+            @ResetCamToCrank.canceled -= instance.OnResetCamToCrank;
+            @FastCamMove.started -= instance.OnFastCamMove;
+            @FastCamMove.performed -= instance.OnFastCamMove;
+            @FastCamMove.canceled -= instance.OnFastCamMove;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PowerActions.UnregisterCallbacks(IPowerActions)" />.
+        /// </summary>
+        /// <seealso cref="PowerActions.UnregisterCallbacks(IPowerActions)" />
+        public void RemoveCallbacks(IPowerActions instance)
+        {
+            if (m_Wrapper.m_PowerActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="PowerActions.AddCallbacks(IPowerActions)" />
+        /// <seealso cref="PowerActions.RemoveCallbacks(IPowerActions)" />
+        /// <seealso cref="PowerActions.UnregisterCallbacks(IPowerActions)" />
+        public void SetCallbacks(IPowerActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PowerActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PowerActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="PowerActions" /> instance referencing this action map.
+    /// </summary>
+    public PowerActions @Power => new PowerActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -1833,5 +2025,34 @@ public partial class @UserInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Power" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="PowerActions.AddCallbacks(IPowerActions)" />
+    /// <seealso cref="PowerActions.RemoveCallbacks(IPowerActions)" />
+    public interface IPowerActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Crank" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCrank(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ResetCamToCrank" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnResetCamToCrank(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FastCamMove" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFastCamMove(InputAction.CallbackContext context);
     }
 }

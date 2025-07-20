@@ -990,6 +990,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Power",
+            "id": "195877e6-638d-4c91-8f2b-8c7c6a3f5175",
+            "actions": [
+                {
+                    "name": "Crank",
+                    "type": "Button",
+                    "id": "311e2997-715a-47db-9829-790398f56882",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ResetCamToCrank",
+                    "type": "Button",
+                    "id": "7a1e0f60-cd73-48b4-9ef9-77bff89d8973",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FastCamMove",
+                    "type": "Button",
+                    "id": "2eb216c7-06d8-4fe3-80ab-e8a2482e7e9f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3f456ceb-fb04-4949-871d-19250e8024da",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Crank",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3534f9d0-da7d-4ea3-bd8e-0d92eb6b5333",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetCamToCrank",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06d6a746-a126-46dd-b558-621302cf20e2",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FastCamMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

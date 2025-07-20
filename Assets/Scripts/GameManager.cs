@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent TriggerLowPowerUI;
     public UnityEvent TriggerGameOver;
+    public UnityEvent ResetErrorUI;
     private bool lowPower = false;
 
 
@@ -160,13 +161,21 @@ public class GameManager : MonoBehaviour
             Timer = 0;
         }
 
-        if (lowPower && Storage.Power <= 0)
+        if (lowPower)
         {
-            GameOverTimer += Time.deltaTime;
-            if (GameOverTimer > 5)
+            if (Storage.Power <= 0)
             {
-                Debug.Log("GAME OVER!");
-                TriggerGameOver?.Invoke();
+                GameOverTimer += Time.deltaTime;
+                if (GameOverTimer > 5)
+                {
+                    Debug.Log("GAME OVER!");
+                    TriggerGameOver?.Invoke();
+                }
+            }
+            else
+            {
+                ResetErrorUI?.Invoke();
+                GameOverTimer = 0;
             }
         }
     }
