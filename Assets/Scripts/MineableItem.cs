@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class MineableItem : MonoBehaviour, IInteractable, ICursorHint
 {
     [SerializeField] private InventoryObject Inventory;
+    [SerializeField] private UIScriptableObject uiScriptableObject;
     [SerializeField] private ItemObject Item;
     [SerializeField] private int Yield = 1;
     [SerializeField] private int RemainingOre = 20;
@@ -26,6 +27,7 @@ public class MineableItem : MonoBehaviour, IInteractable, ICursorHint
         Inventory.AddItem(Item.CreateItem(), Yield);
         MineSoundEvent?.Invoke();
 
+        uiScriptableObject.NumMetal += Yield;
 
         if (RemainingOre == 0)
         {

@@ -4,35 +4,65 @@
         <ui:VisualElement name="Container" enabled="true" style="flex-grow: 1; justify-content: space-between;">
             <ui:VisualElement name="TopRightContainer" style="-unity-text-align: upper-right; align-items: flex-end; flex-direction: row; justify-content: flex-end;">
                 <ui:VisualElement name="ButtonsContainer" style="flex-direction: row;">
-                    <ui:Instance template="Button" name="add-gen">
-                        <AttributeOverrides element-name="UpgradeLight" text="Add Generator" />
-                        <AttributeOverrides element-name="Button" text="Add Generator" />
-                    </ui:Instance>
-                    <ui:Instance template="Button" name="upgrade-light">
-                        <AttributeOverrides element-name="Button" text="Upgrade Light" />
-                    </ui:Instance>
-                    <ui:Instance template="Button" name="upgrade-crank">
-                        <AttributeOverrides element-name="UpgradeLight" text="Upgrade Crank" />
-                        <AttributeOverrides element-name="Button" text="Upgrade Crank" />
-                    </ui:Instance>
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Instance template="Button" name="add-gen">
+                            <AttributeOverrides element-name="UpgradeLight" text="Add Generator" />
+                            <AttributeOverrides element-name="Button" text="Add Generator" />
+                        </ui:Instance>
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: stretch; justify-content: flex-end;">
+                            <ui:Label text="Label" name="Label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(224, 224, 224); font-size: 18px;">
+                                <Bindings>
+                                    <ui:DataBinding property="text" data-source-path="Cost" data-source="project://database/Assets/ScriptableObjects/Cost/Generator.asset?fileID=11400000&amp;guid=365a149a5f75d134380b7af1d6fe92d6&amp;type=2#Generator" binding-mode="ToTarget" />
+                                </Bindings>
+                            </ui:Label>
+                            <ui:Label text="Metal" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(224, 224, 224); font-size: 18px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Instance template="Button" name="upgrade-light">
+                            <AttributeOverrides element-name="Button" text="Upgrade Light" />
+                        </ui:Instance>
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: stretch; justify-content: flex-end;">
+                            <ui:Label text="Label" name="Label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(224, 224, 224); font-size: 18px;">
+                                <Bindings>
+                                    <ui:DataBinding property="text" data-source-path="Cost" data-source="project://database/Assets/ScriptableObjects/Cost/Light.asset?fileID=11400000&amp;guid=a6a78ed897f786848ad126cd8f37919f&amp;type=2#Light" binding-mode="ToTarget" />
+                                </Bindings>
+                            </ui:Label>
+                            <ui:Label text="Energy" name="Label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(224, 224, 224); font-size: 18px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:Instance template="Button" name="upgrade-crank">
+                            <AttributeOverrides element-name="UpgradeLight" text="Upgrade Crank" />
+                            <AttributeOverrides element-name="Button" text="Upgrade Crank" />
+                        </ui:Instance>
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: stretch; justify-content: flex-end;">
+                            <ui:Label text="Label" name="Label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(224, 224, 224); font-size: 18px;">
+                                <Bindings>
+                                    <ui:DataBinding property="text" data-source-path="Cost" data-source="project://database/Assets/ScriptableObjects/Cost/Crank.asset?fileID=11400000&amp;guid=b963886b936601d4caee6954a244dea8&amp;type=2#Crank" binding-mode="ToTarget" />
+                                </Bindings>
+                            </ui:Label>
+                            <ui:Label text="Energy" name="Label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(224, 224, 224); font-size: 18px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; justify-content: center; align-items: center;">
                 <ui:VisualElement name="ErrorMessage" style="background-image: url(&quot;project://database/Assets/Sprites/error-need-light.png?fileID=2800000&amp;guid=a0bb8da2ef36b3346af84e8c47620f5e&amp;type=3#error-need-light&quot;); width: 500px; height: 250px; display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="BottomContainer" style="-unity-text-align: upper-right; flex-direction: row; justify-content: space-between;">
-                <ui:VisualElement name="BottomLeftContainer" style="flex-direction: row;">
-                    <ui:VisualElement name="LightsContainer" style="flex-grow: 1; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); background-image: url(&quot;project://database/Assets/KennyAssets/kenney_ui-pack-space-expansion/PNG/Grey/Default/bar_square_gloss_large_square.png?fileID=2800000&amp;guid=05bdad43c033bd1419bdb73e0835e2b3&amp;type=3#bar_square_gloss_large_square&quot;); width: 128px; height: 128px; margin-right: 18px;">
+                <ui:VisualElement name="BottomLeftContainer" style="flex-direction: row; justify-content: flex-start; align-self: flex-end;">
+                    <ui:VisualElement name="LightsContainer" style="flex-grow: 1; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); background-image: url(&quot;project://database/Assets/KennyAssets/kenney_ui-pack-space-expansion/PNG/Grey/Default/bar_square_gloss_large_square.png?fileID=2800000&amp;guid=05bdad43c033bd1419bdb73e0835e2b3&amp;type=3#bar_square_gloss_large_square&quot;); width: 96px; height: 96px; margin-right: 18px;">
                         <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI%20Icons/simple_light_pic.png?fileID=2800000&amp;guid=624e583c865a6514093581be579bb313&amp;type=3#simple_light_pic&quot;); background-size: 200% 200%;" />
-                        <ui:Label text="0" name="NumLights" style="position: absolute; right: 0; bottom: 0; font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;);">
+                        <ui:Label text="0" name="NumLights" style="position: absolute; right: 0; bottom: 0; font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(0, 0, 0);">
                             <Bindings>
                                 <ui:DataBinding property="text" data-source-path="NumLights" data-source="project://database/Assets/ScriptableObjects/UIScriptableObject.asset?fileID=11400000&amp;guid=a32c5b70d2244924494ebbae0aa826ad&amp;type=2#UIScriptableObject" binding-mode="ToTarget" />
                             </Bindings>
                         </ui:Label>
                     </ui:VisualElement>
-                    <ui:VisualElement name="GeneraterContainer" style="flex-grow: 1; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); background-image: url(&quot;project://database/Assets/KennyAssets/kenney_ui-pack-space-expansion/PNG/Grey/Default/bar_square_gloss_large_square.png?fileID=2800000&amp;guid=05bdad43c033bd1419bdb73e0835e2b3&amp;type=3#bar_square_gloss_large_square&quot;); width: 128px; height: 128px;">
+                    <ui:VisualElement name="GeneraterContainer" style="flex-grow: 1; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); background-image: url(&quot;project://database/Assets/KennyAssets/kenney_ui-pack-space-expansion/PNG/Grey/Default/bar_square_gloss_large_square.png?fileID=2800000&amp;guid=05bdad43c033bd1419bdb73e0835e2b3&amp;type=3#bar_square_gloss_large_square&quot;); width: 96px; height: 96px;">
                         <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI%20Icons/machine_generator_pic.png?fileID=2800000&amp;guid=155a40238c1287343a58584401872730&amp;type=3#machine_generator_pic&quot;); background-size: 150% 150%;" />
-                        <ui:Label text="0" name="NumGen" style="position: absolute; right: 0; bottom: 0; font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;);">
+                        <ui:Label text="0" name="NumGen" style="position: absolute; right: 0; bottom: 0; font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(0, 0, 0);">
                             <Bindings>
                                 <ui:DataBinding property="text" data-source-path="NumGen" data-source="project://database/Assets/ScriptableObjects/UIScriptableObject.asset?fileID=11400000&amp;guid=a32c5b70d2244924494ebbae0aa826ad&amp;type=2#UIScriptableObject" binding-mode="ToTarget" />
                             </Bindings>
@@ -40,12 +70,18 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="BottomRightContainer" style="flex-grow: 1;">
-                    <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyValue" style="font-size: 48px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;">
+                    <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyValue" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="NumMetal" data-source="project://database/Assets/ScriptableObjects/UIScriptableObject.asset?fileID=11400000&amp;guid=a32c5b70d2244924494ebbae0aa826ad&amp;type=2#UIScriptableObject" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                    <ui:Label text="Metal" double-click-selects-word="false" selectable="false" name="EnergyText" parse-escape-sequences="true" style="font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;" />
+                    <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyValue" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;">
                         <Bindings>
                             <ui:DataBinding property="text" data-source-path="Power" data-source="project://database/Assets/ScriptableObjects/PowerStorage/PowerStorage.asset?fileID=11400000&amp;guid=d0202783be85dc245ad3b35518aff1f3&amp;type=2#PowerStorage" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
-                    <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyText" style="font-size: 36px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;" />
+                    <ui:Label text="Energy" double-click-selects-word="false" selectable="false" name="EnergyText" style="font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); color: rgb(231, 231, 231); -unity-font-style: normal;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

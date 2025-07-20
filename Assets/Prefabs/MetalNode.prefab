@@ -68,8 +68,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inventory: {fileID: 11400000, guid: b2849b5fad292b840b1e52a91df87495, type: 2}
+  uiScriptableObject: {fileID: 11400000, guid: a32c5b70d2244924494ebbae0aa826ad, type: 2}
   Item: {fileID: 11400000, guid: 516a9863969f8e147b2be97716185b67, type: 2}
   Yield: 1
+  RemainingOre: 20
+  OreDepleated:
+    m_PersistentCalls:
+      m_Calls: []
+  MineSoundEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &4124452525880851116
 PrefabInstance:
   m_ObjectHideFlags: 0
