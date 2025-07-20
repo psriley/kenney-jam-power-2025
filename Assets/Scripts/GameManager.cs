@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
 
         upgradeSystem.UpgradeItem(generator, true);
         UIScriptableObject.NumGen = generator.numGenerators;
+        UIScriptableObject.NumMetal = inventory.GetItemAmount(0);
     }
 
     public void UpgradeLights()
