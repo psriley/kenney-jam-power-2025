@@ -106,6 +106,15 @@ public class GridGenerator : MonoBehaviour
         return current; // Returns end of coords
     }
 
+    void ReplaceMetalTile(GridCell cell)
+    {
+        GameObject createdObject = Instantiate(floorTilePrefab, cell.transform.position, Quaternion.identity, transform);
+        GridCell gridCell = createdObject.AddComponent<GridCell>();
+
+        Destroy(cell.gameObject);
+    }
+
+
     void GenerateTiles(Vector3Int coordinate)
     {
         var position = grid.GetCellCenterWorld(coordinate);
@@ -136,6 +145,7 @@ public class GridGenerator : MonoBehaviour
         if (isMetalTile)
         {
             gridCell.SetOccupant(createdObject);
+            createdObject.GetComponent<MineableItem>().OreDepleated.AddListener(ReplaceMetalTile);
         }
 
         gridLights[coordinate] = false;
