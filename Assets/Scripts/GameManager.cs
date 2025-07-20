@@ -104,21 +104,26 @@ public class GameManager : MonoBehaviour
 
     public void UpgradeLights()
     {
+        if (!upgradeSystem.HasFunds(lightCostObject)) return;
+
         foreach (Light light in lights)
         {
-            if (light != null && upgradeSystem.HasFunds(light))
+            if (light != null)
             {
                 // We don't want to charge lights for each light
                 upgradeSystem.UpgradeItem(light, false);
                 RemoveFogPanels(light);
             }
         }
+
         Storage.Drain(lightCostObject.Cost);
         upgradeSystem.IncreaseCost(lightCostObject);
     }
 
     public void UpgradeCrank()
     {
+        if (!upgradeSystem.HasFunds(crankSystem)) return;
+
         upgradeSystem.UpgradeItem(crankSystem, true);
         upgradeSystem.IncreaseCost(crankCostObject);
     }

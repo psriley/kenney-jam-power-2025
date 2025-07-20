@@ -18,6 +18,19 @@ public class UpgradeSystem : MonoBehaviour
         return false;
     }
 
+    public bool HasFunds(CostObject costObject)
+    {
+        if (costObject.ResourceCost == ResourceCost.Energy)
+        {
+            return powerStorage.Power >= costObject.Cost;
+        }
+        if (costObject.ResourceCost == ResourceCost.Metal)
+        {
+            return inventoryObject.GetItemAmount(0) >= costObject.Cost;
+        }
+        return false;
+    }
+
     public void UpgradeItem(IUpgradeable upgradeable, bool drainStorage)
     {
         CostObject costObject = upgradeable.CostObject();
