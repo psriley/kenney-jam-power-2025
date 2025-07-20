@@ -2072,6 +2072,7 @@ MonoBehaviour:
   generatorCostObject: {fileID: 11400000, guid: 365a149a5f75d134380b7af1d6fe92d6, type: 2}
   Tick: 1
   UIScriptableObject: {fileID: 11400000, guid: a32c5b70d2244924494ebbae0aa826ad, type: 2}
+  metalObejct: {fileID: 11400000, guid: 516a9863969f8e147b2be97716185b67, type: 2}
   PickaxeCursor: {fileID: 2800000, guid: e510d0ec070249f41a919570a100a299, type: 3}
   NormalCursor: {fileID: 2800000, guid: 7aa7b851344cfeb44b130504f409c2db, type: 3}
   InteractCursor: {fileID: 2800000, guid: fe0856fec59bcbd4bb7e3727244b85cd, type: 3}

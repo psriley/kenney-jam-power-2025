@@ -1,11 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEditor;
 using System.Linq;
-using System;
 using UnityEngine.Events;
-using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CostObject generatorCostObject;
     [SerializeField] private float Tick = 1; // How many seconds per tick?
     [SerializeField] private UIScriptableObject UIScriptableObject;
+    [SerializeField] private ItemObject metalObejct;
 
     [SerializeField] private Texture2D PickaxeCursor;
     [SerializeField] private Texture2D NormalCursor;
@@ -50,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        SetupInventory();
+
         buildSystem = gameObject.AddComponent<BuildSystem>();
         powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
         gridGameObject.gridCreated.AddListener(SetupInitialGridObjects);
@@ -61,6 +60,12 @@ public class GameManager : MonoBehaviour
         SetupCursorChangingSystem();
         SetupClickHandler();
         SetupUpgradeSystem();
+    }
+
+    private void SetupInventory()
+    {
+        inventory.Clear();
+        inventory.AddItem(metalObejct.CreateItem(), 0);
     }
 
     private void LowPower()
@@ -190,6 +195,7 @@ public class GameManager : MonoBehaviour
     {
         Storage.ResetPower();
         UIScriptableObject.Reset();
+        inventory.Clear();
     }
 
     void BuildSomething(GridCell cell)
@@ -199,12 +205,18 @@ public class GameManager : MonoBehaviour
             GameObject newObject = buildSystem.Build(lightPrefab, cell);
             cell.SetOccupant(newObject);
 
-            RemoveFogPanels(cell);
-
             Storage.Drain(5);
             IPowerConsumer consumer = newObject.GetComponent<IPowerConsumer>();
             powerConsumers.Add(consumer);
-            lights.Add(newObject.GetComponent<Light>());
+            Light lightScript = newObject.GetComponent<Light>();
+
+            // We need to get the current level of the lights. We should just be able to get it from the first light
+            int level = lights[0].lightRadius;
+            lightScript.lightRadius = level;
+            lights.Add(lightScript);
+
+            RemoveFogPanels(cell);
+
             UIScriptableObject.NumLights = lights.Count();
             PlaceSoundEvent?.Invoke();
         }
@@ -240,31 +252,5 @@ public class GameManager : MonoBehaviour
                 Destroy(hit.gameObject);
             }
         }
-
-        // if (gg.gridFogTiles.TryGetValue(cell, out GameObject fogTile))
-        // {
-        //     Destroy(fogTile);
-
-        //     List<Vector3> neighborPositions = new List<Vector3>
-        //     {
-        //         cell.transform.position + new Vector3(1, 0, 0),
-        //         cell.transform.position + new Vector3(-1, 0, 0),
-        //         cell.transform.position + new Vector3(0, 0, 1),
-        //         cell.transform.position + new Vector3(0, 0, -1)
-        //     };
-
-        //     foreach (Vector3 neighborPos in neighborPositions)
-        //     {
-        //         Debug.Log(neighborPos);
-        //         if (gg.gridCellPositions.TryGetValue(neighborPos, out GridCell neighborCell))
-        //         {
-        //             if (gg.gridFogTiles.TryGetValue(neighborCell, out GameObject nfogTile))
-        //             {
-        //                 Destroy(nfogTile);
-        //             }
-        //         }
-        //     }
-
-        // }
     }
 }
