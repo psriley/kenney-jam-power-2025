@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc508539bfe0644da6309c5cd028c28, type: 3}
   m_Name: Light
   m_EditorClassIdentifier: 
-  Cost: 10
+  Cost: 50
   ResourceCost: 0
