@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent TriggerGameOver;
     public UnityEvent ResetErrorUI;
     private bool lowPower = false;
+    private bool GameOver = false;
 
     public UnityEvent StartAlarmSoundEvent;
     public UnityEvent StopAlarmSoundEvent;
@@ -164,11 +166,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Timer += Time.deltaTime;
-        if (Timer >= Tick)
+        if (!GameOver)
         {
-            powerSystem.Tick();
-            Timer = 0;
+            Timer += Time.deltaTime;
+            if (Timer >= Tick)
+            {
+                powerSystem.Tick();
+                Timer = 0;
+            }
         }
 
         if (lowPower)
@@ -179,7 +184,10 @@ public class GameManager : MonoBehaviour
                 if (GameOverTimer > 5)
                 {
                     Debug.Log("GAME OVER!");
-                    TriggerGameOver?.Invoke();
+                    SceneManager.LoadScene(1);
+                    // TriggerGameOver?.Invoke();
+                    GameOver = true;
+                    // StartCoroutine(QuitAfterDelay(5f));
                 }
             }
             else
@@ -189,6 +197,13 @@ public class GameManager : MonoBehaviour
                 StopAlarmSoundEvent?.Invoke();
             }
         }
+    }
+
+    private IEnumerator<WaitForSeconds> QuitAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Debug.Log("Quitting!");
+        Application.Quit();
     }
 
     private void OnApplicationQuit()

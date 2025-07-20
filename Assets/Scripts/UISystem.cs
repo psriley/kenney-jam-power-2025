@@ -73,10 +73,11 @@ public class UISystem : MonoBehaviour
         // var root.Q<TemplateContainer>("upgrade-crank");
     }
 
-    public void GameOver()
-    {
-        Debug.Log("Game shows that it is over bro");
-    }
+    // public void GameOver()
+    // {
+    //     VisualElement gameOverText = root.Q("GameOverLabel");
+    //     gameOverText.style.display = DisplayStyle.Flex;
+    // }
 
     public void CancelGameOverError()
     {

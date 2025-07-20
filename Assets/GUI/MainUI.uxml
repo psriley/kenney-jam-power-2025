@@ -49,6 +49,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; justify-content: center; align-items: center;">
                 <ui:VisualElement name="ErrorMessage" style="background-image: url(&quot;project://database/Assets/Sprites/error-need-light.png?fileID=2800000&amp;guid=a0bb8da2ef36b3346af84e8c47620f5e&amp;type=3#error-need-light&quot;); width: 500px; height: 250px; display: none;" />
+                <ui:Label text="game over!" name="GameOverLabel" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Kenney%20Future.ttf?fileID=12800000&amp;guid=88d60a2f74a9aa842bcd0608ac65fd1f&amp;type=3#Kenney Future&quot;); -unity-font-style: bold; color: rgb(178, 34, 34); font-size: 39px; -unity-text-align: middle-left; display: none; visibility: visible;" />
             </ui:VisualElement>
             <ui:VisualElement name="BottomContainer" style="-unity-text-align: upper-right; flex-direction: row; justify-content: space-between;">
                 <ui:VisualElement name="BottomLeftContainer" style="flex-direction: row; justify-content: flex-start; align-self: flex-end;">
