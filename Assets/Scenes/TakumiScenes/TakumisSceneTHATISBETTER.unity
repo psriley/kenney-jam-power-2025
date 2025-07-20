@@ -1620,6 +1620,36 @@ MonoBehaviour:
   NormalCursor: {fileID: 2800000, guid: 7aa7b851344cfeb44b130504f409c2db, type: 3}
   InteractCursor: {fileID: 2800000, guid: fe0856fec59bcbd4bb7e3727244b85cd, type: 3}
   gridGameObject: {fileID: 246573364}
+  TriggerLowPowerUI:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 445858958}
+        m_TargetAssemblyTypeName: UISystem, Assembly-CSharp
+        m_MethodName: OnLowPower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  TriggerGameOver:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 445858958}
+        m_TargetAssemblyTypeName: UISystem, Assembly-CSharp
+        m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1667231943
 Transform:
   m_ObjectHideFlags: 0

@@ -4,10 +4,13 @@ using System.ComponentModel;
 using UnityEditor;
 using System.Linq;
 using System;
+using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
     private float Timer;
+    private float GameOverTimer;
 
 
     public InventoryObject inventory;
@@ -36,6 +39,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Texture2D InteractCursor;
     [SerializeField] private GridGenerator gridGameObject;
 
+    public UnityEvent TriggerLowPowerUI;
+    public UnityEvent TriggerGameOver;
+    private bool lowPower = false;
+
 
     void Awake()
     {
@@ -43,11 +50,19 @@ public class GameManager : MonoBehaviour
         powerSystem = new PowerSystem(Storage, powerProducers, powerConsumers);
         gridGameObject.gridCreated.AddListener(SetupInitialGridObjects);
         generator = gameObject.AddComponent<GeneratorSystem>();
+        Storage.Power = 1;
+        Storage.LowPower.AddListener(LowPower);
 
         SetupGenerator();
         SetupCursorChangingSystem();
         SetupClickHandler();
         SetupUpgradeSystem();
+    }
+
+    private void LowPower()
+    {
+        TriggerLowPowerUI?.Invoke();
+        lowPower = true;
     }
 
     private void SetupGenerator()
@@ -143,6 +158,16 @@ public class GameManager : MonoBehaviour
         {
             powerSystem.Tick();
             Timer = 0;
+        }
+
+        if (lowPower && Storage.Power <= 0)
+        {
+            GameOverTimer += Time.deltaTime;
+            if (GameOverTimer > 5)
+            {
+                Debug.Log("GAME OVER!");
+                TriggerGameOver?.Invoke();
+            }
         }
     }
 

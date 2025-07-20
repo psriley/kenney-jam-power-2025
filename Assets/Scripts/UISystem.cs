@@ -8,24 +8,25 @@ public class UISystem : MonoBehaviour
     private Button upgradeCrankButton;
     private Button upgradeLightButton;
     private Button createGeneratorButton;
-    private Button testButton;
+    private VisualElement root;
 
     public UnityEvent UpgradeCrankClicked;
     public UnityEvent UpgradeLightClicked;
     public UnityEvent CreateGeneratorClicked;
 
+
     private void OnEnable()
     {
-        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
 
         var upgradeCrankButtonRoot = root.Q<TemplateContainer>("upgrade-crank");
-        var upgradeCrankButton = upgradeCrankButtonRoot?.Q<Button>("Button");
+        upgradeCrankButton = upgradeCrankButtonRoot?.Q<Button>("Button");
 
         var upgradeLightButtonRoot = root.Q<TemplateContainer>("upgrade-light");
-        var upgradeLightButton = upgradeLightButtonRoot?.Q<Button>("Button");
+        upgradeLightButton = upgradeLightButtonRoot?.Q<Button>("Button");
 
         var createGeneratorButtonRoot = root.Q<TemplateContainer>("add-gen");
-        var createGeneratorButton = createGeneratorButtonRoot?.Q<Button>("Button");
+        createGeneratorButton = createGeneratorButtonRoot?.Q<Button>("Button");
 
         if (UpgradeCrankClicked == null)
         {
@@ -63,5 +64,17 @@ public class UISystem : MonoBehaviour
     {
         Debug.Log("Crank Button Clicked");
         UpgradeCrankClicked?.Invoke();
+    }
+
+    public void OnLowPower()
+    {
+        VisualElement error = root.Q("ErrorMessage");
+        error.style.display = DisplayStyle.Flex;
+        // var root.Q<TemplateContainer>("upgrade-crank");
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game shows that it is over bro");
     }
 }

@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afdd5c63a61b4244b5abd4d1d162af5, type: 3}
   m_Name: PowerStorage
   m_EditorClassIdentifier: 
-  Power: 0
+  OutOfPower:
+    m_PersistentCalls:
+      m_Calls: []
+  Power: 1

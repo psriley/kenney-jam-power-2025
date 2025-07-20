@@ -1,9 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "PowerStorage", menuName = "Scriptable Objects/PowerStorage")]
-public class PowerStorage: ScriptableObject
+public class PowerStorage : ScriptableObject
 {
-    public int Power = 0;
+    public UnityEvent LowPower = new UnityEvent();
+
+    public int Power = 1;
 
     public void Store(int amount)
     {
@@ -13,6 +17,12 @@ public class PowerStorage: ScriptableObject
     public void Drain(int amount)
     {
         Power -= amount;
+
+        if (Power <= 0)
+        {
+            Power = 0;
+            LowPower?.Invoke();
+        }
     }
 
     public void ResetPower()
