@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     private float Timer;
     private float GameOverTimer;
 
-
     public InventoryObject inventory;
     private ClickHandler clickHandler;
     private PowerSystem powerSystem;
@@ -38,12 +37,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Texture2D NormalCursor;
     [SerializeField] private Texture2D InteractCursor;
     [SerializeField] private GridGenerator gridGameObject;
+    [SerializeField] private AudioSystem audioSystem;
 
     public UnityEvent TriggerLowPowerUI;
     public UnityEvent TriggerGameOver;
     public UnityEvent ResetErrorUI;
     private bool lowPower = false;
 
+    public UnityEvent StartAlarmSoundEvent;
+    public UnityEvent StopAlarmSoundEvent;
+    public UnityEvent PlaceSoundEvent;
 
     void Awake()
     {
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
     private void LowPower()
     {
         TriggerLowPowerUI?.Invoke();
+        StartAlarmSoundEvent?.Invoke();
         lowPower = true;
     }
 
@@ -131,6 +135,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject clickGenerator = Instantiate(ClickGeneratorPrefab);
         crankSystem = clickGenerator.GetComponent<CrankSystem>();
+        crankSystem.CrankSoundEvent.AddListener(audioSystem.PlayCrankSound);
         clickGenerator.transform.position = gridGameObject.transform.GetChild(1).position;
         GridCell initCell = gridGameObject.transform.GetChild(1).GetComponent<GridCell>();
 
@@ -176,6 +181,7 @@ public class GameManager : MonoBehaviour
             {
                 ResetErrorUI?.Invoke();
                 GameOverTimer = 0;
+                StopAlarmSoundEvent?.Invoke();
             }
         }
     }
@@ -200,6 +206,7 @@ public class GameManager : MonoBehaviour
             powerConsumers.Add(consumer);
             lights.Add(newObject.GetComponent<Light>());
             UIScriptableObject.NumLights = lights.Count();
+            PlaceSoundEvent?.Invoke();
         }
         else
         {

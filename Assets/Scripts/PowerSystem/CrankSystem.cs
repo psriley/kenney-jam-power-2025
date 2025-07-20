@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable, ICursorHint, IUpgradeable
 {
@@ -11,6 +12,7 @@ public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable, ICursor
 
     public CursorType GetCursorType() => CursorType.Interact;
     public CostObject CostObject() => costObject;
+    public UnityEvent CrankSoundEvent;
 
     public float rotationSpeed = 360f;
     public float lingerTime = 1f;
@@ -21,6 +23,15 @@ public class CrankSystem : MonoBehaviour, IPowerProducer, IInteractable, ICursor
     {
         Spin();
         PowerStorage.Store(Produce);
+        CrankSoundEvent?.Invoke();
+    }
+
+    private void Awake()
+    {
+        if (CrankSoundEvent == null)
+        {
+            CrankSoundEvent = new UnityEvent();
+        }
     }
 
     public void UpgradeLevel(int val)

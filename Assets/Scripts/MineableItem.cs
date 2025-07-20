@@ -9,6 +9,7 @@ public class MineableItem : MonoBehaviour, IInteractable, ICursorHint
     [SerializeField] private int Yield = 1;
     [SerializeField] private int RemainingOre = 20;
     public UnityEvent<GridCell> OreDepleated;
+    public UnityEvent MineSoundEvent;
 
     public CursorType GetCursorType() => CursorType.Pickaxe;
 
@@ -23,7 +24,9 @@ public class MineableItem : MonoBehaviour, IInteractable, ICursorHint
     {
         RemainingOre -= 1;
         Inventory.AddItem(Item.CreateItem(), Yield);
-    
+        MineSoundEvent?.Invoke();
+
+
         if (RemainingOre == 0)
         {
             OreDepleated?.Invoke(GetComponent<GridCell>());

@@ -21,7 +21,7 @@ public class GridGenerator : MonoBehaviour
     [SerializeField] private GameObject metalTilePrefab;
     [SerializeField] private int metalTileChance = 20;
 
-
+    [SerializeField] AudioSystem audioSystem;
     public Dictionary<Vector3Int, bool> gridLights = new Dictionary<Vector3Int, bool>();
 
     private Grid grid;
@@ -145,7 +145,9 @@ public class GridGenerator : MonoBehaviour
         if (isMetalTile)
         {
             gridCell.SetOccupant(createdObject);
-            createdObject.GetComponent<MineableItem>().OreDepleated.AddListener(ReplaceMetalTile);
+            MineableItem mineScript = createdObject.GetComponent<MineableItem>();
+            mineScript.OreDepleated.AddListener(ReplaceMetalTile);
+            mineScript.MineSoundEvent.AddListener(audioSystem.PlayMineSound);
         }
 
         gridLights[coordinate] = false;

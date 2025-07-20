@@ -50,6 +50,23 @@ MonoBehaviour:
   PowerStorage: {fileID: 11400000, guid: d0202783be85dc245ad3b35518aff1f3, type: 2}
   costObject: {fileID: 11400000, guid: b963886b936601d4caee6954a244dea8, type: 2}
   Crank: {fileID: 5608981154842560244}
+  CrankSoundEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  rotationSpeed: 360
+  lingerTime: 1
 --- !u!65 &2884633791754868477
 BoxCollider:
   m_ObjectHideFlags: 0
